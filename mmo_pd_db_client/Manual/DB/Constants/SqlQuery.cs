@@ -1,0 +1,119 @@
+﻿namespace mmo_pd_db_client.Manual.DB.Constants
+{
+    public class SqlQuery
+    {
+        public static string createTablesQuery = @"                               BEGIN
+                                    execute immediate 'CREATE TABLE Konta(
+                                    ID NUMBER CONSTRAINT konta_PK PRIMARY KEY NOT NULL,
+                                    email varchar2(64) NOT NULL,
+                                    login varchar2(64) NOT NULL,
+                                    password_hash varchar(255) NOT NULL,
+                                    created_at DATE DEFAULT(SYSDATE) NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Wyglad(
+                                    ID NUMBER CONSTRAINT wyglad_PK PRIMARY KEY NOT NULL,
+                                    sex varchar2(1) CHECK(sex IN(''k'',''m'')) NOT NULL,
+                                    height NUMBER(5,2) NOT NULL,
+                                    chest_width NUMBER(5,2) NOT NULL,
+                                    skin_color varchar2(7) NOT NULL, -- HEX HASH COLOR 
+                                    hair_color varchar2(7) NOT NULL, -- HEX HASH COLOR
+                                    eye_color varchar2(7) NOT NULL, -- HEX HASH COLOR
+                                    hair_type NUMBER(1) CHECK(hair_type BETWEEN 0 AND 3) NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Mapy(
+                                    ID NUMBER CONSTRAINT mapy_PK PRIMARY KEY NOT NULL,
+                                    name varchar2(64) NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Bazowe_Statystyki(
+                                    ID NUMBER CONSTRAINT bazowe_statystyki_PK PRIMARY KEY NOT NULL,
+                                    base_hp NUMBER NOT NULL,
+                                    base_mp NUMBER NOT NULL,
+                                    base_str NUMBER NOT NULL,
+                                    base_ag NUMBER NOT NULL, --agility
+                                    base_int NUMBER NOT NULL, -- inteligence
+                                    base_stamina NUMBER NOT NULL
+                                    )';
+                                    --TWORZENIE TABELI TYP_UMIEJETNOSCI
+                                    execute immediate 'CREATE TABLE Typy_umiejetnosci(
+                                    ID NUMBER CONSTRAINT typy_um_PK PRIMARY KEY NOT NULL,
+                                    type_name varchar2(255) NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Statystyki(
+                                    ID NUMBER CONSTRAINT statystyki_PK PRIMARY KEY NOT NULL,
+                                    ch_level number(3) DEFAULT(1) NOT NULL,
+                                    hp NUMBER NOT NULL,
+                                    mana NUMBER NOT NULL,
+                                    str NUMBER NOT NULL,
+                                    agility NUMBER NOT NULL,
+                                    inteligence NUMBER NOT NULL,
+                                    stamina NUMBER NOT NULL,
+                                    exp_points NUMBER NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Klasy_postaci(
+                                    ID NUMBER CONSTRAINT klasy_pos_PK PRIMARY KEY NOT NULL,
+                                    class_name varchar2(255) NOT NULL,
+                                    b_stat_id NUMBER  CONSTRAINT klasy_statystyki_Bazowe_FK REFERENCES Bazowe_Statystyki(ID)
+                                    ON DELETE SET NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Rasy(
+                                    ID NUMBER CONSTRAINT rasy_PK PRIMARY KEY NOT NULL,
+                                    b_stat_id NUMBER NOT NULL CONSTRAINT rasy_statystyki_Bazowe_FK REFERENCES Bazowe_Statystyki(ID)
+                                    ON DELETE SET NULL,
+                                    model varchar2(255) DEFAULT(''VOID_MODEL'') NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Pozycje(
+                                    ID NUMBER CONSTRAINT pozycja_PK PRIMARY KEY NOT NULL,
+                                    x NUMBER(10,4) NOT NULL,
+                                    y NUMBER(10,4) NOT NULL,
+                                    z NUMBER(10,4) NOT NULL,
+                                    map_id NUMBER NOT NULL CONSTRAINT pozycja_mapa_FK REFERENCES Mapy(ID)
+                                    ON DELETE SET NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Postacie(
+                                    ID NUMBER CONSTRAINT postacie_PK PRIMARY KEY NOT NULL,
+                                    nickname varchar2(255) NOT NULL,
+                                    stat_id NUMBER CONSTRAINT postacie_stat_FK  REFERENCES Statystyki(ID)
+                                    ON DELETE SET NULL,
+                                    acc_id NUMBER CONSTRAINT postacie_konto_FK REFERENCES Konta(ID)
+                                    ON DELETE SET NULL,
+                                    race_id NUMBER CONSTRAINT postacie_rasa_FK REFERENCES Rasy(ID) -- rasa
+                                    ON DELETE SET NULL,
+                                    class_id NUMBER CONSTRAINT postacie_klasa_FK REFERENCES Klasy_postaci(ID)
+                                    ON DELETE SET NULL,
+                                    look_id NUMBER CONSTRAINT postacie_wyglad_FK REFERENCES Wyglad(ID)
+                                    ON DELETE SET NULL,
+                                    pos_id NUMBER CONSTRAINT postacie_pozycja_FK REFERENCES Pozycje(ID)
+                                    ON DELETE SET NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Umiejetnosci(
+                                    ID NUMBER CONSTRAINT umiejetnosci_PK PRIMARY KEY NOT NULL,
+                                    skill_type_id NUMBER CONSTRAINT umiejetnosci_typ_FK REFERENCES Typy_umiejetnosci(ID)
+                                    ON DELETE SET NULL,
+                                    skill_name varchar2(255) NOT NULL,
+                                    base_dmg NUMBER NOT NULL
+                                    )';
+                                    execute immediate 'CREATE TABLE Umiejetnosci_Postac(
+                                    ID NUMBER CONSTRAINT um_pos_PK PRIMARY KEY NOT NULL CHECK (ID > 0),
+                                    char_id NUMBER CONSTRAINT to_pos_FK REFERENCES Postacie(ID)
+                                    ON DELETE SET NULL,
+                                    skill_id NUMBER CONSTRAINT to_skill_FK REFERENCES Umiejetnosci(ID)
+                                    ON DELETE SET NULL
+                                    )';
+                                    END;";
+
+        public static string dropTablesQuery = @"BEGIN
+                                                execute immediate ' DROP TABLE Konta CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Wyglad CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Mapy CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Bazowe_Statystyki CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Typy_umiejetnosci CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Statystyki CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Klasy_postaci CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Rasy CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Pozycje CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Postacie CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Umiejetnosci CASCADE CONSTRAINTS';
+                                                execute immediate ' DROP TABLE Umiejetnosci_Postac CASCADE CONSTRAINTS';
+                                                END;";
+    }
+}
