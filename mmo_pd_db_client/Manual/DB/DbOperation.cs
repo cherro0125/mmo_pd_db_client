@@ -37,5 +37,31 @@ namespace mmo_pd_db_client.Manual.DB
                 dbConnection.CloseConnection();
             }
         }
+
+        public void DropSequences()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = dbConnection.connection;
+                cmd.CommandText = SqlQuery.dropSequencesQuery;
+                cmd.ExecuteNonQuery();
+                dbConnection.CloseConnection();
+            }
+        }
+
+        public void CreateSequences()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = dbConnection.connection;
+                cmd.CommandText = SqlQuery.createSequencesQuery;
+                cmd.ExecuteNonQuery();
+                dbConnection.CloseConnection();
+            }
+        }
     }
 }

@@ -115,5 +115,35 @@
                                                 execute immediate ' DROP TABLE Umiejetnosci CASCADE CONSTRAINTS';
                                                 execute immediate ' DROP TABLE Umiejetnosci_Postac CASCADE CONSTRAINTS';
                                                 END;";
+
+        public static string createSequencesQuery = @"BEGIN
+                                                    execute immediate ' CREATE SEQUENCE Konta_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Wyglad_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Mapy_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Bazowe_Statystyki_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Typy_umiejetnosci_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Statystyki_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Klasy_postaci_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Rasy_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Pozycje_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Postacie_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Umiejetnosci_seq START WITH 1';
+                                                    execute immediate ' CREATE SEQUENCE Umiejetnosci_Postac_seq START WITH 1';
+                                                    END;";
+
+        public static string dropSequencesQuery = @"BEGIN
+                                                    execute immediate ' DROP SEQUENCE Konta_seq ';
+                                                    execute immediate ' DROP SEQUENCE Wyglad_seq ';
+                                                    execute immediate ' DROP SEQUENCE Mapy_seq ';
+                                                    execute immediate ' DROP SEQUENCE Bazowe_Statystyki_seq ';
+                                                    execute immediate ' DROP SEQUENCE Typy_umiejetnosci_seq ';
+                                                    execute immediate ' DROP SEQUENCE Statystyki_seq ';
+                                                    execute immediate ' DROP SEQUENCE Klasy_postaci_seq ';
+                                                    execute immediate ' DROP SEQUENCE Rasy_seq ';
+                                                    execute immediate ' DROP SEQUENCE Pozycje_seq ';
+                                                    execute immediate ' DROP SEQUENCE Postacie_seq ';
+                                                    execute immediate ' DROP SEQUENCE Umiejetnosci_seq ';
+                                                    execute immediate ' DROP SEQUENCE Umiejetnosci_Postac_seq ';
+                                                    END;";
     }
 }
