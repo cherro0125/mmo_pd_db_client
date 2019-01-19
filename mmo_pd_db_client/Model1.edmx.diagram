@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb0f58e19cd744799f0bcd7af02fc182" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.BAZOWE_STATYSTYKI" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.KLASY_POSTACI" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.KONTA" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAPY" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POSTACIE" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POZYCJE" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RASY" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.STATYSTYKI" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TYPY_UMIEJETNOSCI" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UMIEJETNOSCI" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UMIEJETNOSCI_POSTAC" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.WYGLAD" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GRACZE_NA_MAPACH" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POSTACIE_LEVEL_AVG" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POSTACIE_WYSOKOSC_MAPA" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.KLASY_STATYSTYKI_BAZOWE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RASY_STATYSTYKI_BAZOWE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_KLASA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_KONTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POZYCJA_MAPA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_POZYCJA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_RASA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_STAT_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.POSTACIE_WYGLAD_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.TO_POS_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.UMIEJETNOSCI_TYP_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.TO_SKILL_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

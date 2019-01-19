@@ -1,0 +1,985 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BAZOWE_STATYSTYKI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_HP" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_MP" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_STR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_AG" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_INT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_STAMINA" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KLASY_POSTACI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLASS_NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="B_STAT_ID" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="KONTA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="PASSWORD_HASH" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MAPY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSTACIE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NICKNAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="STAT_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ACC_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="RACE_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="CLASS_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="LOOK_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="POS_ID" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="POZYCJE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="X" Type="number" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="Y" Type="number" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="Z" Type="number" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="MAP_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RASY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="B_STAT_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MODEL" Type="varchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STATYSTYKI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CH_LEVEL" Type="number" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="HP" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MANA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="AGILITY" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INTELIGENCE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STAMINA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EXP_POINTS" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TYPY_UMIEJETNOSCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE_NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UMIEJETNOSCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SKILL_TYPE_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="SKILL_NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="BASE_DMG" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UMIEJETNOSCI_POSTAC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CHAR_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="SKILL_ID" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="WYGLAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SEX" Type="varchar2" MaxLength="1" Nullable="false" />
+          <Property Name="HEIGHT" Type="number" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="CHEST_WIDTH" Type="number" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SKIN_COLOR" Type="varchar2" MaxLength="7" Nullable="false" />
+          <Property Name="HAIR_COLOR" Type="varchar2" MaxLength="7" Nullable="false" />
+          <Property Name="EYE_COLOR" Type="varchar2" MaxLength="7" Nullable="false" />
+          <Property Name="HAIR_TYPE" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MMO_PD.GRACZE_NA_MAPACH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GRACZE_NA_MAPACH">
+          <Key>
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="NAME" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="ILOSC_GRACZY" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'MMO_PD.KONTA_REJESTRACJA_DZIEN' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="KONTA_REJESTRACJA_DZIEN">
+          <Property Name="DZIEN" Type="number" Precision="38" Scale="0" />
+          <Property Name="ILOSC_KONT" Type="number" Precision="38" Scale="0" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MMO_PD.POSTACIE_LEVEL_AVG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="POSTACIE_LEVEL_AVG">
+          <Key>
+            <PropertyRef Name="EMAIL" />
+            <PropertyRef Name="LOGIN" />
+            <PropertyRef Name="NICKNAME" />
+            <PropertyRef Name="CH_LEVEL" />
+          </Key>
+          <Property Name="EMAIL" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="NICKNAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="CH_LEVEL" Type="number" Precision="3" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MMO_PD.POSTACIE_WYSOKOSC_MAPA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="POSTACIE_WYSOKOSC_MAPA">
+          <Key>
+            <PropertyRef Name="NICKNAME" />
+            <PropertyRef Name="NAZWA_MAPY" />
+            <PropertyRef Name="WYSOKOSC_NA_MAPIE" />
+          </Key>
+          <Property Name="NICKNAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="NAZWA_MAPY" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="WYSOKOSC_NA_MAPIE" Type="number" Precision="10" Scale="4" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'MMO_PD.WYSOKOSCI_WIDOK' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="WYSOKOSCI_WIDOK">
+          <Property Name="SUMA_WYSOKOSCI_PEWNYCH_RAS" Type="number" Precision="38" Scale="0" />
+          <Property Name="NAJZWYZSZY_Z_PEWNYCH_RAS" Type="number" Precision="38" Scale="0" />
+        </EntityType>-->
+        <Association Name="KLASY_STATYSTYKI_BAZOWE_FK">
+          <End Role="BAZOWE_STATYSTYKI" Type="Self.BAZOWE_STATYSTYKI" Multiplicity="0..1" />
+          <End Role="KLASY_POSTACI" Type="Self.KLASY_POSTACI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAZOWE_STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KLASY_POSTACI">
+              <PropertyRef Name="B_STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_KLASA_FK">
+          <End Role="KLASY_POSTACI" Type="Self.KLASY_POSTACI" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KLASY_POSTACI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="CLASS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_KONTO_FK">
+          <End Role="KONTA" Type="Self.KONTA" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KONTA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="ACC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_POZYCJA_FK">
+          <End Role="POZYCJE" Type="Self.POZYCJE" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POZYCJE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="POS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_RASA_FK">
+          <End Role="RASY" Type="Self.RASY" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RASY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="RACE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_STAT_FK">
+          <End Role="STATYSTYKI" Type="Self.STATYSTYKI" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_WYGLAD_FK">
+          <End Role="WYGLAD" Type="Self.WYGLAD" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WYGLAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="LOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POZYCJA_MAPA_FK">
+          <End Role="MAPY" Type="Self.MAPY" Multiplicity="1" />
+          <End Role="POZYCJE" Type="Self.POZYCJE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAPY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POZYCJE">
+              <PropertyRef Name="MAP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RASY_STATYSTYKI_BAZOWE_FK">
+          <End Role="BAZOWE_STATYSTYKI" Type="Self.BAZOWE_STATYSTYKI" Multiplicity="1" />
+          <End Role="RASY" Type="Self.RASY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAZOWE_STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RASY">
+              <PropertyRef Name="B_STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TO_POS_FK">
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI_POSTAC" Type="Self.UMIEJETNOSCI_POSTAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTACIE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI_POSTAC">
+              <PropertyRef Name="CHAR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TO_SKILL_FK">
+          <End Role="UMIEJETNOSCI" Type="Self.UMIEJETNOSCI" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI_POSTAC" Type="Self.UMIEJETNOSCI_POSTAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMIEJETNOSCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI_POSTAC">
+              <PropertyRef Name="SKILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UMIEJETNOSCI_TYP_FK">
+          <End Role="TYPY_UMIEJETNOSCI" Type="Self.TYPY_UMIEJETNOSCI" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI" Type="Self.UMIEJETNOSCI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPY_UMIEJETNOSCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI">
+              <PropertyRef Name="SKILL_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CUSTOM_AUTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="MMO_PD" ReturnType="pl/sql boolean">
+          <Parameter Name="P_USERNAME" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASSWORD" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="CUSTOM_HASH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="MMO_PD" ReturnType="varchar2">
+          <Parameter Name="P_USERNAME" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASSWORD" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="DODAJ_STATYSTYKI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="MMO_PD" ReturnType="number">
+          <Parameter Name="RASA" Type="varchar2" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="BAZOWE_STATYSTYKI" EntityType="Self.BAZOWE_STATYSTYKI" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="KLASY_POSTACI" EntityType="Self.KLASY_POSTACI" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="KONTA" EntityType="Self.KONTA" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="MAPY" EntityType="Self.MAPY" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="POSTACIE" EntityType="Self.POSTACIE" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="POZYCJE" EntityType="Self.POZYCJE" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="RASY" EntityType="Self.RASY" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="STATYSTYKI" EntityType="Self.STATYSTYKI" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="TYPY_UMIEJETNOSCI" EntityType="Self.TYPY_UMIEJETNOSCI" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="UMIEJETNOSCI" EntityType="Self.UMIEJETNOSCI" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="UMIEJETNOSCI_POSTAC" EntityType="Self.UMIEJETNOSCI_POSTAC" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="WYGLAD" EntityType="Self.WYGLAD" Schema="MMO_PD" store:Type="Tables" />
+          <EntitySet Name="GRACZE_NA_MAPACH" EntityType="Self.GRACZE_NA_MAPACH" store:Type="Views" store:Schema="MMO_PD">
+            <DefiningQuery>SELECT 
+"GRACZE_NA_MAPACH"."NAME" AS "NAME", 
+"GRACZE_NA_MAPACH"."ILOSC_GRACZY" AS "ILOSC_GRACZY"
+FROM "MMO_PD"."GRACZE_NA_MAPACH" "GRACZE_NA_MAPACH"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POSTACIE_LEVEL_AVG" EntityType="Self.POSTACIE_LEVEL_AVG" store:Type="Views" store:Schema="MMO_PD">
+            <DefiningQuery>SELECT 
+"POSTACIE_LEVEL_AVG"."EMAIL" AS "EMAIL", 
+"POSTACIE_LEVEL_AVG"."LOGIN" AS "LOGIN", 
+"POSTACIE_LEVEL_AVG"."NICKNAME" AS "NICKNAME", 
+"POSTACIE_LEVEL_AVG"."CH_LEVEL" AS "CH_LEVEL"
+FROM "MMO_PD"."POSTACIE_LEVEL_AVG" "POSTACIE_LEVEL_AVG"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POSTACIE_WYSOKOSC_MAPA" EntityType="Self.POSTACIE_WYSOKOSC_MAPA" store:Type="Views" store:Schema="MMO_PD">
+            <DefiningQuery>SELECT 
+"POSTACIE_WYSOKOSC_MAPA"."NICKNAME" AS "NICKNAME", 
+"POSTACIE_WYSOKOSC_MAPA"."NAZWA_MAPY" AS "NAZWA_MAPY", 
+"POSTACIE_WYSOKOSC_MAPA"."WYSOKOSC_NA_MAPIE" AS "WYSOKOSC_NA_MAPIE"
+FROM "MMO_PD"."POSTACIE_WYSOKOSC_MAPA" "POSTACIE_WYSOKOSC_MAPA"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="KLASY_STATYSTYKI_BAZOWE_FK" Association="Self.KLASY_STATYSTYKI_BAZOWE_FK">
+            <End Role="BAZOWE_STATYSTYKI" EntitySet="BAZOWE_STATYSTYKI" />
+            <End Role="KLASY_POSTACI" EntitySet="KLASY_POSTACI" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_KLASA_FK" Association="Self.POSTACIE_KLASA_FK">
+            <End Role="KLASY_POSTACI" EntitySet="KLASY_POSTACI" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_KONTO_FK" Association="Self.POSTACIE_KONTO_FK">
+            <End Role="KONTA" EntitySet="KONTA" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_POZYCJA_FK" Association="Self.POSTACIE_POZYCJA_FK">
+            <End Role="POZYCJE" EntitySet="POZYCJE" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_RASA_FK" Association="Self.POSTACIE_RASA_FK">
+            <End Role="RASY" EntitySet="RASY" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_STAT_FK" Association="Self.POSTACIE_STAT_FK">
+            <End Role="STATYSTYKI" EntitySet="STATYSTYKI" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_WYGLAD_FK" Association="Self.POSTACIE_WYGLAD_FK">
+            <End Role="WYGLAD" EntitySet="WYGLAD" />
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+          </AssociationSet>
+          <AssociationSet Name="POZYCJA_MAPA_FK" Association="Self.POZYCJA_MAPA_FK">
+            <End Role="MAPY" EntitySet="MAPY" />
+            <End Role="POZYCJE" EntitySet="POZYCJE" />
+          </AssociationSet>
+          <AssociationSet Name="RASY_STATYSTYKI_BAZOWE_FK" Association="Self.RASY_STATYSTYKI_BAZOWE_FK">
+            <End Role="BAZOWE_STATYSTYKI" EntitySet="BAZOWE_STATYSTYKI" />
+            <End Role="RASY" EntitySet="RASY" />
+          </AssociationSet>
+          <AssociationSet Name="TO_POS_FK" Association="Self.TO_POS_FK">
+            <End Role="POSTACIE" EntitySet="POSTACIE" />
+            <End Role="UMIEJETNOSCI_POSTAC" EntitySet="UMIEJETNOSCI_POSTAC" />
+          </AssociationSet>
+          <AssociationSet Name="TO_SKILL_FK" Association="Self.TO_SKILL_FK">
+            <End Role="UMIEJETNOSCI" EntitySet="UMIEJETNOSCI" />
+            <End Role="UMIEJETNOSCI_POSTAC" EntitySet="UMIEJETNOSCI_POSTAC" />
+          </AssociationSet>
+          <AssociationSet Name="UMIEJETNOSCI_TYP_FK" Association="Self.UMIEJETNOSCI_TYP_FK">
+            <End Role="TYPY_UMIEJETNOSCI" EntitySet="TYPY_UMIEJETNOSCI" />
+            <End Role="UMIEJETNOSCI" EntitySet="UMIEJETNOSCI" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BAZOWE_STATYSTYKI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_HP" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_MP" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_STR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_AG" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_INT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BASE_STAMINA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="KLASY_POSTACI" Relationship="Self.KLASY_STATYSTYKI_BAZOWE_FK" FromRole="BAZOWE_STATYSTYKI" ToRole="KLASY_POSTACI" />
+          <NavigationProperty Name="RASies" Relationship="Self.RASY_STATYSTYKI_BAZOWE_FK" FromRole="BAZOWE_STATYSTYKI" ToRole="RASY" />
+        </EntityType>
+        <EntityType Name="KLASY_POSTACI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLASS_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="B_STAT_ID" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="BAZOWE_STATYSTYKI" Relationship="Self.KLASY_STATYSTYKI_BAZOWE_FK" FromRole="KLASY_POSTACI" ToRole="BAZOWE_STATYSTYKI" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_KLASA_FK" FromRole="KLASY_POSTACI" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="KONTA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD_HASH" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_KONTO_FK" FromRole="KONTA" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="MAPY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="POZYCJEs" Relationship="Self.POZYCJA_MAPA_FK" FromRole="MAPY" ToRole="POZYCJE" />
+        </EntityType>
+        <EntityType Name="POSTACIE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NICKNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STAT_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ACC_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="RACE_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CLASS_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LOOK_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="POS_ID" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="KLASY_POSTACI" Relationship="Self.POSTACIE_KLASA_FK" FromRole="POSTACIE" ToRole="KLASY_POSTACI" />
+          <NavigationProperty Name="KONTA" Relationship="Self.POSTACIE_KONTO_FK" FromRole="POSTACIE" ToRole="KONTA" />
+          <NavigationProperty Name="POZYCJE" Relationship="Self.POSTACIE_POZYCJA_FK" FromRole="POSTACIE" ToRole="POZYCJE" />
+          <NavigationProperty Name="RASY" Relationship="Self.POSTACIE_RASA_FK" FromRole="POSTACIE" ToRole="RASY" />
+          <NavigationProperty Name="STATYSTYKI" Relationship="Self.POSTACIE_STAT_FK" FromRole="POSTACIE" ToRole="STATYSTYKI" />
+          <NavigationProperty Name="WYGLAD" Relationship="Self.POSTACIE_WYGLAD_FK" FromRole="POSTACIE" ToRole="WYGLAD" />
+          <NavigationProperty Name="UMIEJETNOSCI_POSTAC" Relationship="Self.TO_POS_FK" FromRole="POSTACIE" ToRole="UMIEJETNOSCI_POSTAC" />
+        </EntityType>
+        <EntityType Name="POZYCJE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="X" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="Y" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="Z" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="MAP_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="MAPY" Relationship="Self.POZYCJA_MAPA_FK" FromRole="POZYCJE" ToRole="MAPY" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_POZYCJA_FK" FromRole="POZYCJE" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="RASY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="B_STAT_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MODEL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BAZOWE_STATYSTYKI" Relationship="Self.RASY_STATYSTYKI_BAZOWE_FK" FromRole="RASY" ToRole="BAZOWE_STATYSTYKI" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_RASA_FK" FromRole="RASY" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="STATYSTYKI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CH_LEVEL" Type="Byte" Nullable="false" />
+          <Property Name="HP" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MANA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="AGILITY" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INTELIGENCE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STAMINA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EXP_POINTS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_STAT_FK" FromRole="STATYSTYKI" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="TYPY_UMIEJETNOSCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UMIEJETNOSCIs" Relationship="Self.UMIEJETNOSCI_TYP_FK" FromRole="TYPY_UMIEJETNOSCI" ToRole="UMIEJETNOSCI" />
+        </EntityType>
+        <EntityType Name="UMIEJETNOSCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SKILL_TYPE_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SKILL_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BASE_DMG" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="TYPY_UMIEJETNOSCI" Relationship="Self.UMIEJETNOSCI_TYP_FK" FromRole="UMIEJETNOSCI" ToRole="TYPY_UMIEJETNOSCI" />
+          <NavigationProperty Name="UMIEJETNOSCI_POSTAC" Relationship="Self.TO_SKILL_FK" FromRole="UMIEJETNOSCI" ToRole="UMIEJETNOSCI_POSTAC" />
+        </EntityType>
+        <EntityType Name="UMIEJETNOSCI_POSTAC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CHAR_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SKILL_ID" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="POSTACIE" Relationship="Self.TO_POS_FK" FromRole="UMIEJETNOSCI_POSTAC" ToRole="POSTACIE" />
+          <NavigationProperty Name="UMIEJETNOSCI" Relationship="Self.TO_SKILL_FK" FromRole="UMIEJETNOSCI_POSTAC" ToRole="UMIEJETNOSCI" />
+        </EntityType>
+        <EntityType Name="WYGLAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SEX" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HEIGHT" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="CHEST_WIDTH" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SKIN_COLOR" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HAIR_COLOR" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EYE_COLOR" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HAIR_TYPE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="POSTACIEs" Relationship="Self.POSTACIE_WYGLAD_FK" FromRole="WYGLAD" ToRole="POSTACIE" />
+        </EntityType>
+        <EntityType Name="GRACZE_NA_MAPACH">
+          <Key>
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ILOSC_GRACZY" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="POSTACIE_LEVEL_AVG">
+          <Key>
+            <PropertyRef Name="EMAIL" />
+            <PropertyRef Name="LOGIN" />
+            <PropertyRef Name="NICKNAME" />
+            <PropertyRef Name="CH_LEVEL" />
+          </Key>
+          <Property Name="EMAIL" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NICKNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CH_LEVEL" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSTACIE_WYSOKOSC_MAPA">
+          <Key>
+            <PropertyRef Name="NICKNAME" />
+            <PropertyRef Name="NAZWA_MAPY" />
+            <PropertyRef Name="WYSOKOSC_NA_MAPIE" />
+          </Key>
+          <Property Name="NICKNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAZWA_MAPY" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WYSOKOSC_NA_MAPIE" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="KLASY_STATYSTYKI_BAZOWE_FK">
+          <End Role="BAZOWE_STATYSTYKI" Type="Self.BAZOWE_STATYSTYKI" Multiplicity="0..1" />
+          <End Role="KLASY_POSTACI" Type="Self.KLASY_POSTACI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAZOWE_STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KLASY_POSTACI">
+              <PropertyRef Name="B_STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RASY_STATYSTYKI_BAZOWE_FK">
+          <End Role="BAZOWE_STATYSTYKI" Type="Self.BAZOWE_STATYSTYKI" Multiplicity="1" />
+          <End Role="RASY" Type="Self.RASY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAZOWE_STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RASY">
+              <PropertyRef Name="B_STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_KLASA_FK">
+          <End Role="KLASY_POSTACI" Type="Self.KLASY_POSTACI" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KLASY_POSTACI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="CLASS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_KONTO_FK">
+          <End Role="KONTA" Type="Self.KONTA" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KONTA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="ACC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POZYCJA_MAPA_FK">
+          <End Role="MAPY" Type="Self.MAPY" Multiplicity="1" />
+          <End Role="POZYCJE" Type="Self.POZYCJE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAPY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POZYCJE">
+              <PropertyRef Name="MAP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_POZYCJA_FK">
+          <End Role="POZYCJE" Type="Self.POZYCJE" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POZYCJE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="POS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_RASA_FK">
+          <End Role="RASY" Type="Self.RASY" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RASY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="RACE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_STAT_FK">
+          <End Role="STATYSTYKI" Type="Self.STATYSTYKI" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATYSTYKI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="STAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POSTACIE_WYGLAD_FK">
+          <End Role="WYGLAD" Type="Self.WYGLAD" Multiplicity="0..1" />
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WYGLAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="POSTACIE">
+              <PropertyRef Name="LOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TO_POS_FK">
+          <End Role="POSTACIE" Type="Self.POSTACIE" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI_POSTAC" Type="Self.UMIEJETNOSCI_POSTAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTACIE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI_POSTAC">
+              <PropertyRef Name="CHAR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UMIEJETNOSCI_TYP_FK">
+          <End Role="TYPY_UMIEJETNOSCI" Type="Self.TYPY_UMIEJETNOSCI" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI" Type="Self.UMIEJETNOSCI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPY_UMIEJETNOSCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI">
+              <PropertyRef Name="SKILL_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TO_SKILL_FK">
+          <End Role="UMIEJETNOSCI" Type="Self.UMIEJETNOSCI" Multiplicity="0..1" />
+          <End Role="UMIEJETNOSCI_POSTAC" Type="Self.UMIEJETNOSCI_POSTAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMIEJETNOSCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UMIEJETNOSCI_POSTAC">
+              <PropertyRef Name="SKILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BAZOWE_STATYSTYKI" EntityType="Self.BAZOWE_STATYSTYKI" />
+          <EntitySet Name="KLASY_POSTACI" EntityType="Self.KLASY_POSTACI" />
+          <EntitySet Name="KONTAs" EntityType="Self.KONTA" />
+          <EntitySet Name="MAPies" EntityType="Self.MAPY" />
+          <EntitySet Name="POSTACIEs" EntityType="Self.POSTACIE" />
+          <EntitySet Name="POZYCJEs" EntityType="Self.POZYCJE" />
+          <EntitySet Name="RASies" EntityType="Self.RASY" />
+          <EntitySet Name="STATYSTYKIs" EntityType="Self.STATYSTYKI" />
+          <EntitySet Name="TYPY_UMIEJETNOSCI" EntityType="Self.TYPY_UMIEJETNOSCI" />
+          <EntitySet Name="UMIEJETNOSCIs" EntityType="Self.UMIEJETNOSCI" />
+          <EntitySet Name="UMIEJETNOSCI_POSTAC" EntityType="Self.UMIEJETNOSCI_POSTAC" />
+          <EntitySet Name="WYGLADs" EntityType="Self.WYGLAD" />
+          <EntitySet Name="GRACZE_NA_MAPACH" EntityType="Self.GRACZE_NA_MAPACH" />
+          <EntitySet Name="POSTACIE_LEVEL_AVG" EntityType="Self.POSTACIE_LEVEL_AVG" />
+          <EntitySet Name="POSTACIE_WYSOKOSC_MAPA" EntityType="Self.POSTACIE_WYSOKOSC_MAPA" />
+          <AssociationSet Name="KLASY_STATYSTYKI_BAZOWE_FK" Association="Self.KLASY_STATYSTYKI_BAZOWE_FK">
+            <End Role="BAZOWE_STATYSTYKI" EntitySet="BAZOWE_STATYSTYKI" />
+            <End Role="KLASY_POSTACI" EntitySet="KLASY_POSTACI" />
+          </AssociationSet>
+          <AssociationSet Name="RASY_STATYSTYKI_BAZOWE_FK" Association="Self.RASY_STATYSTYKI_BAZOWE_FK">
+            <End Role="BAZOWE_STATYSTYKI" EntitySet="BAZOWE_STATYSTYKI" />
+            <End Role="RASY" EntitySet="RASies" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_KLASA_FK" Association="Self.POSTACIE_KLASA_FK">
+            <End Role="KLASY_POSTACI" EntitySet="KLASY_POSTACI" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_KONTO_FK" Association="Self.POSTACIE_KONTO_FK">
+            <End Role="KONTA" EntitySet="KONTAs" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="POZYCJA_MAPA_FK" Association="Self.POZYCJA_MAPA_FK">
+            <End Role="MAPY" EntitySet="MAPies" />
+            <End Role="POZYCJE" EntitySet="POZYCJEs" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_POZYCJA_FK" Association="Self.POSTACIE_POZYCJA_FK">
+            <End Role="POZYCJE" EntitySet="POZYCJEs" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_RASA_FK" Association="Self.POSTACIE_RASA_FK">
+            <End Role="RASY" EntitySet="RASies" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_STAT_FK" Association="Self.POSTACIE_STAT_FK">
+            <End Role="STATYSTYKI" EntitySet="STATYSTYKIs" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="POSTACIE_WYGLAD_FK" Association="Self.POSTACIE_WYGLAD_FK">
+            <End Role="WYGLAD" EntitySet="WYGLADs" />
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+          </AssociationSet>
+          <AssociationSet Name="TO_POS_FK" Association="Self.TO_POS_FK">
+            <End Role="POSTACIE" EntitySet="POSTACIEs" />
+            <End Role="UMIEJETNOSCI_POSTAC" EntitySet="UMIEJETNOSCI_POSTAC" />
+          </AssociationSet>
+          <AssociationSet Name="UMIEJETNOSCI_TYP_FK" Association="Self.UMIEJETNOSCI_TYP_FK">
+            <End Role="TYPY_UMIEJETNOSCI" EntitySet="TYPY_UMIEJETNOSCI" />
+            <End Role="UMIEJETNOSCI" EntitySet="UMIEJETNOSCIs" />
+          </AssociationSet>
+          <AssociationSet Name="TO_SKILL_FK" Association="Self.TO_SKILL_FK">
+            <End Role="UMIEJETNOSCI" EntitySet="UMIEJETNOSCIs" />
+            <End Role="UMIEJETNOSCI_POSTAC" EntitySet="UMIEJETNOSCI_POSTAC" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities1">
+          <EntitySetMapping Name="BAZOWE_STATYSTYKI">
+            <EntityTypeMapping TypeName="Model.BAZOWE_STATYSTYKI">
+              <MappingFragment StoreEntitySet="BAZOWE_STATYSTYKI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BASE_HP" ColumnName="BASE_HP" />
+                <ScalarProperty Name="BASE_MP" ColumnName="BASE_MP" />
+                <ScalarProperty Name="BASE_STR" ColumnName="BASE_STR" />
+                <ScalarProperty Name="BASE_AG" ColumnName="BASE_AG" />
+                <ScalarProperty Name="BASE_INT" ColumnName="BASE_INT" />
+                <ScalarProperty Name="BASE_STAMINA" ColumnName="BASE_STAMINA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KLASY_POSTACI">
+            <EntityTypeMapping TypeName="Model.KLASY_POSTACI">
+              <MappingFragment StoreEntitySet="KLASY_POSTACI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CLASS_NAME" ColumnName="CLASS_NAME" />
+                <ScalarProperty Name="B_STAT_ID" ColumnName="B_STAT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KONTAs">
+            <EntityTypeMapping TypeName="Model.KONTA">
+              <MappingFragment StoreEntitySet="KONTA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWORD_HASH" ColumnName="PASSWORD_HASH" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAPies">
+            <EntityTypeMapping TypeName="Model.MAPY">
+              <MappingFragment StoreEntitySet="MAPY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTACIEs">
+            <EntityTypeMapping TypeName="Model.POSTACIE">
+              <MappingFragment StoreEntitySet="POSTACIE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NICKNAME" ColumnName="NICKNAME" />
+                <ScalarProperty Name="STAT_ID" ColumnName="STAT_ID" />
+                <ScalarProperty Name="ACC_ID" ColumnName="ACC_ID" />
+                <ScalarProperty Name="RACE_ID" ColumnName="RACE_ID" />
+                <ScalarProperty Name="CLASS_ID" ColumnName="CLASS_ID" />
+                <ScalarProperty Name="LOOK_ID" ColumnName="LOOK_ID" />
+                <ScalarProperty Name="POS_ID" ColumnName="POS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POZYCJEs">
+            <EntityTypeMapping TypeName="Model.POZYCJE">
+              <MappingFragment StoreEntitySet="POZYCJE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="MAP_ID" ColumnName="MAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RASies">
+            <EntityTypeMapping TypeName="Model.RASY">
+              <MappingFragment StoreEntitySet="RASY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="B_STAT_ID" ColumnName="B_STAT_ID" />
+                <ScalarProperty Name="MODEL" ColumnName="MODEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATYSTYKIs">
+            <EntityTypeMapping TypeName="Model.STATYSTYKI">
+              <MappingFragment StoreEntitySet="STATYSTYKI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CH_LEVEL" ColumnName="CH_LEVEL" />
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="MANA" ColumnName="MANA" />
+                <ScalarProperty Name="STR" ColumnName="STR" />
+                <ScalarProperty Name="AGILITY" ColumnName="AGILITY" />
+                <ScalarProperty Name="INTELIGENCE" ColumnName="INTELIGENCE" />
+                <ScalarProperty Name="STAMINA" ColumnName="STAMINA" />
+                <ScalarProperty Name="EXP_POINTS" ColumnName="EXP_POINTS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPY_UMIEJETNOSCI">
+            <EntityTypeMapping TypeName="Model.TYPY_UMIEJETNOSCI">
+              <MappingFragment StoreEntitySet="TYPY_UMIEJETNOSCI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UMIEJETNOSCIs">
+            <EntityTypeMapping TypeName="Model.UMIEJETNOSCI">
+              <MappingFragment StoreEntitySet="UMIEJETNOSCI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SKILL_TYPE_ID" ColumnName="SKILL_TYPE_ID" />
+                <ScalarProperty Name="SKILL_NAME" ColumnName="SKILL_NAME" />
+                <ScalarProperty Name="BASE_DMG" ColumnName="BASE_DMG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UMIEJETNOSCI_POSTAC">
+            <EntityTypeMapping TypeName="Model.UMIEJETNOSCI_POSTAC">
+              <MappingFragment StoreEntitySet="UMIEJETNOSCI_POSTAC">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CHAR_ID" ColumnName="CHAR_ID" />
+                <ScalarProperty Name="SKILL_ID" ColumnName="SKILL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WYGLADs">
+            <EntityTypeMapping TypeName="Model.WYGLAD">
+              <MappingFragment StoreEntitySet="WYGLAD">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+                <ScalarProperty Name="CHEST_WIDTH" ColumnName="CHEST_WIDTH" />
+                <ScalarProperty Name="SKIN_COLOR" ColumnName="SKIN_COLOR" />
+                <ScalarProperty Name="HAIR_COLOR" ColumnName="HAIR_COLOR" />
+                <ScalarProperty Name="EYE_COLOR" ColumnName="EYE_COLOR" />
+                <ScalarProperty Name="HAIR_TYPE" ColumnName="HAIR_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GRACZE_NA_MAPACH">
+            <EntityTypeMapping TypeName="Model.GRACZE_NA_MAPACH">
+              <MappingFragment StoreEntitySet="GRACZE_NA_MAPACH">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ILOSC_GRACZY" ColumnName="ILOSC_GRACZY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTACIE_LEVEL_AVG">
+            <EntityTypeMapping TypeName="Model.POSTACIE_LEVEL_AVG">
+              <MappingFragment StoreEntitySet="POSTACIE_LEVEL_AVG">
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="NICKNAME" ColumnName="NICKNAME" />
+                <ScalarProperty Name="CH_LEVEL" ColumnName="CH_LEVEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTACIE_WYSOKOSC_MAPA">
+            <EntityTypeMapping TypeName="Model.POSTACIE_WYSOKOSC_MAPA">
+              <MappingFragment StoreEntitySet="POSTACIE_WYSOKOSC_MAPA">
+                <ScalarProperty Name="NICKNAME" ColumnName="NICKNAME" />
+                <ScalarProperty Name="NAZWA_MAPY" ColumnName="NAZWA_MAPY" />
+                <ScalarProperty Name="WYSOKOSC_NA_MAPIE" ColumnName="WYSOKOSC_NA_MAPIE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
