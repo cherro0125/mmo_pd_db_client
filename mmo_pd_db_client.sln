@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmo_pd_db_client", "mmo_pd_db_client\mmo_pd_db_client.csproj", "{B0FC4C78-9538-4A9A-80F9-07A0E4312ACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0FC4C78-9538-4A9A-80F9-07A0E4312ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0FC4C78-9538-4A9A-80F9-07A0E4312ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0FC4C78-9538-4A9A-80F9-07A0E4312ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0FC4C78-9538-4A9A-80F9-07A0E4312ACB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64718BAF-52AA-4D9F-89F4-7FE588820A99}
+	EndGlobalSection
+EndGlobal
