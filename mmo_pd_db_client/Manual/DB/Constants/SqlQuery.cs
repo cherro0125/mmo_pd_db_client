@@ -226,5 +226,11 @@
                                                     execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,4,5)';
                                                     execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,5,3)';
                                                     END;";
+
+        public static string insertNotValidData = @"BEGIN
+                                                    execute immediate 'INSERT INTO Umiejetnosci_Postac VALUES(1,5,5)';
+                                                    execute immediate 'INSERT INTO Umiejetnosci VALUES(NULL,NULL,NULL,NULL)';
+                                                    execute immediate 'INSERT INTO Umiejetnosci_Postac VALUES(-2,5,5)';
+                                                     END;";
     }
 }

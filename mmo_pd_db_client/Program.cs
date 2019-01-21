@@ -21,7 +21,7 @@ namespace mmo_pd_db_client
             //    }
                
             DbOperation op = new DbOperation();
-            op.InsertExamplesData();
+            op.InsertNotValidData();
 
             Console.ReadKey();
 
