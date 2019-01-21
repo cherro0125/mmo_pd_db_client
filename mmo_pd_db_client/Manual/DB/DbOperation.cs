@@ -1,4 +1,5 @@
-﻿using mmo_pd_db_client.Manual.DB.Constants;
+﻿using System;
+using mmo_pd_db_client.Manual.DB.Constants;
 using Oracle.ManagedDataAccess.Client;
 
 namespace mmo_pd_db_client.Manual.DB
@@ -17,11 +18,25 @@ namespace mmo_pd_db_client.Manual.DB
             dbConnection.OpenConnection();
             using (dbConnection.connection)
             {
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = dbConnection.connection;
-                cmd.CommandText = SqlQuery.dropTablesQuery;
-                cmd.ExecuteNonQuery();
-                dbConnection.CloseConnection();
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                try
+                {
+                    cmd.CommandText = SqlQuery.dropTablesQuery;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Drop tables successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot drop tables!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+
+                }
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
+            
             }
         }
 
@@ -30,11 +45,24 @@ namespace mmo_pd_db_client.Manual.DB
             dbConnection.OpenConnection();
             using (dbConnection.connection)
             {
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = dbConnection.connection;
-                cmd.CommandText = SqlQuery.createTablesQuery;
-                cmd.ExecuteNonQuery();
-                dbConnection.CloseConnection();
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                try
+                {
+                    cmd.CommandText = SqlQuery.createTablesQuery;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Create tables successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot create tables!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
+       
             }
         }
 
@@ -43,11 +71,25 @@ namespace mmo_pd_db_client.Manual.DB
             dbConnection.OpenConnection();
             using (dbConnection.connection)
             {
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = dbConnection.connection;
-                cmd.CommandText = SqlQuery.dropSequencesQuery;
-                cmd.ExecuteNonQuery();
-                dbConnection.CloseConnection();
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                try
+                {
+                    cmd.CommandText = SqlQuery.dropSequencesQuery;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Drop sequences successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot drop sequence!");
+                    Console.WriteLine("Exception message: "+ ex.Message);
+                    Console.WriteLine("Exception source: "+ex.Source);
+                }
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
+                
+               
             }
         }
 
@@ -56,11 +98,24 @@ namespace mmo_pd_db_client.Manual.DB
             dbConnection.OpenConnection();
             using (dbConnection.connection)
             {
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = dbConnection.connection;
-                cmd.CommandText = SqlQuery.createSequencesQuery;
-                cmd.ExecuteNonQuery();
-                dbConnection.CloseConnection();
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                try
+                {
+                    cmd.CommandText = SqlQuery.createSequencesQuery;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Create sequences successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot create sequence!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
+         
             }
         }
     }
