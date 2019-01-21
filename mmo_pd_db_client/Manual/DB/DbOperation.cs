@@ -117,9 +117,11 @@ namespace mmo_pd_db_client.Manual.DB
                 {
                     try
                     {
+                        Console.WriteLine("DEBUG SQL: " + insertSql);
                         cmd.CommandText = insertSql;
                         cmd.ExecuteNonQuery();
                         Console.WriteLine("Insert data successful!");
+
                     }
                     catch (OracleException ex)
                     {

@@ -101,6 +101,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                     skill_id NUMBER CONSTRAINT to_skill_FK REFERENCES Umiejetnosci(ID)
                                     ON DELETE SET NULL
                                     )';
+                                    execute immediate 'COMMIT';
                                     END;";
 
         public static string dropTablesQuery = @"BEGIN
@@ -116,6 +117,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                 execute immediate ' DROP TABLE Postacie CASCADE CONSTRAINTS';
                                                 execute immediate ' DROP TABLE Umiejetnosci CASCADE CONSTRAINTS';
                                                 execute immediate ' DROP TABLE Umiejetnosci_Postac CASCADE CONSTRAINTS';
+                                                execute immediate 'COMMIT';
                                                 END;";
 
         public static string createSequencesQuery = @"BEGIN
@@ -131,6 +133,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                     execute immediate ' CREATE SEQUENCE Postacie_seq START WITH 1';
                                                     execute immediate ' CREATE SEQUENCE Umiejetnosci_seq START WITH 1';
                                                     execute immediate ' CREATE SEQUENCE Umiejetnosci_Postac_seq START WITH 1';
+                                                    execute immediate 'COMMIT';
                                                     END;";
 
         public static string dropSequencesQuery = @"BEGIN
@@ -146,98 +149,111 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                     execute immediate ' DROP SEQUENCE Postacie_seq ';
                                                     execute immediate ' DROP SEQUENCE Umiejetnosci_seq ';
                                                     execute immediate ' DROP SEQUENCE Umiejetnosci_Postac_seq ';
+                                                    execute immediate 'COMMIT';                                                     
                                                     END;";
 
-        public static List<string> insertExampleData = new List<string>(new string[]
+        public static LinkedList<string> insertExampleData = new LinkedList<string>(new string[]
         {
-            "INSERT INTO Konta VALUES(Konta_seq.NEXTVAL,'janush@nos.pl','passat88','DWDWDWDWD3131313DDWDWDSASADADADADAD##!#!#!@@',SYSDATE)",
-            "INSERT INTO Konta VALUES(Konta_seq.NEXTVAL,'janosik@pieronie.pl','pyzdrach','121313DDWDWD##!#dSASASASAS!#!@@',SYSDATE)",
-            "INSERT INTO Konta VALUES(Konta_seq.NEXTVAL,'krzysztof@marynarz.pl','chcialbymbyc','121313DDWDWD##!#dSASASADAE!#!@@',SYSDATE+5)",
-            "INSERT INTO Konta VALUES(Konta_seq.NEXTVAL,'krawczyk@piosenkarzem.pl','songmebabe','331313DDWDWD##!#dSAAASASAS!#!@@',SYSDATE+1)",
-            "INSERT INTO Konta VALUES(Konta_seq.NEXTVAL,'maryla@rodo.eu','neverdiebeforenewyear','121313DDWDWD##!#dSASASASAS!#!@@',SYSDATE+3)",
+            "INSERT INTO Konta VALUES(1,'janush@nos.pl','passat88','DWDWDWDWD3131313DDWDWDSASADADADADAD##!#!#!@@',SYSDATE)",
+            "INSERT INTO Konta VALUES(2,'janosik@pieronie.pl','pyzdrach','121313DDWDWD##!#dSASASASAS!#!@@',SYSDATE)",
+            "INSERT INTO Konta VALUES(3,'krzysztof@marynarz.pl','chcialbymbyc','121313DDWDWD##!#dSASASADAE!#!@@',SYSDATE+5)",
+            "INSERT INTO Konta VALUES(4,'krawczyk@piosenkarzem.pl','songmebabe','331313DDWDWD##!#dSAAASASAS!#!@@',SYSDATE+1)",
+            "INSERT INTO Konta VALUES(5,'maryla@rodo.eu','neverdiebeforenewyear','121313DDWDWD##!#dSASASASAS!#!@@',SYSDATE+3)",
+            "COMMIT",
 
-            "INSERT INTO Wyglad VALUES(Wyglad_seq.NEXTVAL,'m',170,30,'#FF00AA','#FFBBCC','#0F00AA',1)",
-            "INSERT INTO Wyglad VALUES(Wyglad_seq.NEXTVAL,'k',140,70,'#FFB0AA','#CCCCAA','#FA00AA',1)",
-            "INSERT INTO Wyglad VALUES(Wyglad_seq.NEXTVAL,'m',150,90,'#FFAAAA','#CCBBAA','#FD00AA',2)",
-            "INSERT INTO Wyglad VALUES(Wyglad_seq.NEXTVAL,'m',160,120,'#FFB0CC','#CCFFCC','#2F00AA',3)",
-            "INSERT INTO Wyglad VALUES(Wyglad_seq.NEXTVAL,'k',190,150,'#DDB0AA','#AABBCC','#3F40AA',2)",
+            "INSERT INTO Wyglad VALUES(1,'m',170,30,'#FF00AA','#FFBBCC','#0F00AA',1)",
+            "INSERT INTO Wyglad VALUES(2,'k',140,70,'#FFB0AA','#CCCCAA','#FA00AA',1)",
+            "INSERT INTO Wyglad VALUES(3,'m',150,90,'#FFAAAA','#CCBBAA','#FD00AA',2)",
+            "INSERT INTO Wyglad VALUES(4,'m',160,120,'#FFB0CC','#CCFFCC','#2F00AA',3)",
+            "INSERT INTO Wyglad VALUES(5,'k',190,150,'#DDB0AA','#AABBCC','#3F40AA',2)",
+            "COMMIT",
 
-            "INSERT INTO Mapy VALUES(Mapy_seq.NEXTVAL,'map_2tsuded')",
-            "INSERT INTO Mapy VALUES(Mapy_seq.NEXTVAL,'map_atlantide')",
-            "INSERT INTO Mapy VALUES(Mapy_seq.NEXTVAL,'map_slask')",
-            "INSERT INTO Mapy VALUES(Mapy_seq.NEXTVAL,'map_sosnowiec')",
-            "INSERT INTO Mapy VALUES(Mapy_seq.NEXTVAL,'map_janosikfield')",
+            "INSERT INTO Mapy VALUES(1,'map_2tsuded')",
+            "INSERT INTO Mapy VALUES(2,'map_atlantide')",
+            "INSERT INTO Mapy VALUES(3,'map_slask')",
+            "INSERT INTO Mapy VALUES(4,'map_sosnowiec')",
+            "INSERT INTO Mapy VALUES(5,'map_janosikfield')",
+            "COMMIT",
 
-            "INSERT INTO Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,200,300,4,20,33,100)",
-            "INSERT INTO Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,500,200,45,50,4,200)",
-            "INSERT INTO Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,1000,300,24,25,4,500)",
-            "INSERT INTO Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,2000,1000,34,30,3,600)",
-            "INSERT INTO Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,100,1400,74,55,3,400)",
-
-
-            "INSERT INTO Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,'active_fire_mage')",
-            "INSERT INTO Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,'passive_warrior')",
-            "INSERT INTO Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,'passive_mage')",
-            "INSERT INTO Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,'passive_hunter')",
-            "INSERT INTO Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,'active_speed_rouge')",
+            "INSERT INTO Bazowe_statystyki VALUES(1,200,300,4,20,33,100)",
+            "INSERT INTO Bazowe_statystyki VALUES(2,500,200,45,50,4,200)",
+            "INSERT INTO Bazowe_statystyki VALUES(3,1000,300,24,25,4,500)",
+            "INSERT INTO Bazowe_statystyki VALUES(4,2000,1000,34,30,3,600)",
+            "INSERT INTO Bazowe_statystyki VALUES(5,100,1400,74,55,3,400)",
+            "COMMIT",
 
 
-            "INSERT INTO Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,'mage',1)",
-            "INSERT INTO Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,'warrior',2)",
-            "INSERT INTO Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,'hunter',3)",
-            "INSERT INTO Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,'rouge',4)",
-            "INSERT INTO Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,'traitor',5)",
+            "INSERT INTO Typy_umiejetnosci VALUES(1,'active_fire_mage')",
+            "INSERT INTO Typy_umiejetnosci VALUES(2,'passive_warrior')",
+            "INSERT INTO Typy_umiejetnosci VALUES(3,'passive_mage')",
+            "INSERT INTO Typy_umiejetnosci VALUES(4,'passive_hunter')",
+            "INSERT INTO Typy_umiejetnosci VALUES(5,'active_speed_rouge')",
+            "COMMIT",
 
 
-            "INSERT INTO Rasy VALUES(Rasy_seq.NEXTVAL,1,'human_man_model_01')",
-            "INSERT INTO Rasy VALUES(Rasy_seq.NEXTVAL,2,'orc_woman_model_01')",
-            "INSERT INTO Rasy VALUES(Rasy_seq.NEXTVAL,2,'orc_man_model_01')",
-            "INSERT INTO Rasy VALUES(Rasy_seq.NEXTVAL,2,'elf_woman_model_01')",
-            "INSERT INTO Rasy VALUES(Rasy_seq.NEXTVAL,2,'elf_man_model_01')",
+            "INSERT INTO Klasy_postaci VALUES(1,'mage',1)",
+            "INSERT INTO Klasy_postaci VALUES(2,'warrior',2)",
+            "INSERT INTO Klasy_postaci VALUES(3,'hunter',3)",
+            "INSERT INTO Klasy_postaci VALUES(4,'rouge',4)",
+            "INSERT INTO Klasy_postaci VALUES(5,'traitor',5)",
+            "COMMIT",
 
 
-            "INSERT INTO Pozycje VALUES(Pozycje_seq.NEXTVAL,10,20,302,1)",
-            "INSERT INTO Pozycje VALUES(Pozycje_seq.NEXTVAL,20,5.5,372.55,2)",
-            "INSERT INTO Pozycje VALUES(Pozycje_seq.NEXTVAL,50,6.5,40.65,3)",
-            "INSERT INTO Pozycje VALUES(Pozycje_seq.NEXTVAL,25,7.5,40.55,4)",
-            "INSERT INTO Pozycje VALUES(Pozycje_seq.NEXTVAL,22,12.5,55.55,4)",
+            "INSERT INTO Rasy VALUES(1,1,'human_man_model_01')",
+            "INSERT INTO Rasy VALUES(2,2,'orc_woman_model_01')",
+            "INSERT INTO Rasy VALUES(3,2,'orc_man_model_01')",
+            "INSERT INTO Rasy VALUES(4,2,'elf_woman_model_01')",
+            "INSERT INTO Rasy VALUES(5,2,'elf_man_model_01')",
+            "COMMIT",
 
 
-            "INSERT INTO Statystyki VALUES(Statystyki_seq.NEXTVAL,10,100,200,10,25,33,120,3)",
-            "INSERT INTO Statystyki VALUES(Statystyki_seq.NEXTVAL,20,200,400,60,26,34,112,11)",
-            "INSERT INTO Statystyki VALUES(Statystyki_seq.NEXTVAL,30,300,300,50,27,33,997,2222)",
-            "INSERT INTO Statystyki VALUES(Statystyki_seq.NEXTVAL,40,400,100,40,28,32,666,2224)",
-            "INSERT INTO Statystyki VALUES(Statystyki_seq.NEXTVAL,200,500,50,20,30,31,69,2222)",
+            "INSERT INTO Pozycje VALUES(1,10,20,302,1)",
+            "INSERT INTO Pozycje VALUES(2,20,5.5,372.55,2)",
+            "INSERT INTO Pozycje VALUES(3,50,6.5,40.65,3)",
+            "INSERT INTO Pozycje VALUES(4,25,7.5,40.55,4)",
+            "INSERT INTO Pozycje VALUES(5,22,12.5,55.55,4)",
+            "COMMIT",
 
 
-            "INSERT INTO Postacie VALUES(Postacie_seq.NEXTVAL,'WladcaPassata',1,1,1,1,1,1)",
-            "INSERT INTO Postacie VALUES(Postacie_seq.NEXTVAL,'VernonRochePatriotaJakichMalo',2,2,2,2,2,2)",
-            "INSERT INTO Postacie VALUES(Postacie_seq.NEXTVAL,'Legolas5214124PL',3,4,3,3,3,3)",
-            "INSERT INTO Postacie VALUES(Postacie_seq.NEXTVAL,'Anubisos',4,5,2,4,4,4)",
-            "INSERT INTO Postacie VALUES(Postacie_seq.NEXTVAL,'666Kitten666',5,3,5,4,4,4)",
-
-            "INSERT INTO Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,1,'Fireball',150)",
-            "INSERT INTO Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,2,'Iron Skin',150)",
-            "INSERT INTO Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,3,'Inteligence of Asgard',150)",
-            "INSERT INTO Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,4,'Born to be wild',150)",
-            "INSERT INTO Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,5,'Run Forest! Run!',150)",
+            "INSERT INTO Statystyki VALUES(1,10,100,200,10,25,33,120,3)",
+            "INSERT INTO Statystyki VALUES(2,20,200,400,60,26,34,112,11)",
+            "INSERT INTO Statystyki VALUES(3,30,300,300,50,27,33,997,2222)",
+            "INSERT INTO Statystyki VALUES(4,40,400,100,40,28,32,666,2224)",
+            "INSERT INTO Statystyki VALUES(5,200,500,50,20,30,31,69,2222)",
+            "COMMIT",
 
 
-            "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,1,1)",
-            "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,2,2)",
-            "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,3,4)",
-            "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,4,5)",
-            "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,5,3)"
+            "INSERT INTO Postacie VALUES(1,'WladcaPassata',1,1,1,1,1,1)",
+            "INSERT INTO Postacie VALUES(2,'VernonRochePatriotaJakichMalo',2,2,2,2,2,2)",
+            "INSERT INTO Postacie VALUES(3,'Legolas5214124PL',3,4,3,3,3,3)",
+            "INSERT INTO Postacie VALUES(4,'Anubisos',4,5,2,4,4,4)",
+            "INSERT INTO Postacie VALUES(5,'666Kitten666',5,3,5,4,4,4)",
+            "COMMIT",
+
+            "INSERT INTO Umiejetnosci VALUES(1,1,'Fireball',150)",
+            "INSERT INTO Umiejetnosci VALUES(2,2,'Iron Skin',150)",
+            "INSERT INTO Umiejetnosci VALUES(3,3,'Inteligence of Asgard',150)",
+            "INSERT INTO Umiejetnosci VALUES(4,4,'Born to be wild',150)",
+            "INSERT INTO Umiejetnosci VALUES(5,5,'Run Forest! Run!',150)",
+            "COMMIT",
+
+            "INSERT INTO Umiejetnosci_Postac VALUES(1,1,1)",
+            "INSERT INTO Umiejetnosci_Postac VALUES(2,2,2)",
+            "INSERT INTO Umiejetnosci_Postac VALUES(3,3,4)",
+            "INSERT INTO Umiejetnosci_Postac VALUES(4,4,5)",
+            "INSERT INTO Umiejetnosci_Postac VALUES(5,5,3)",
+            "COMMIT"
         });
 
         public static string insertNotValidData = @"BEGIN
                                                     execute immediate 'INSERT INTO Umiejetnosci_Postac VALUES(1,5,5)';
                                                     execute immediate 'INSERT INTO Umiejetnosci VALUES(NULL,NULL,NULL,NULL)';
                                                     execute immediate 'INSERT INTO Umiejetnosci_Postac VALUES(-2,5,5)';
+                                                    execute immediate 'COMMIT';
                                                      END;";
 
 
-        public static List<string> truncateTables = new List<string>(new string[] {
+        public static LinkedList<string> truncateTables = new LinkedList<string>(new string[] {
                                                                                     "DELETE FROM  Konta",
                                                                                     "DELETE FROM  Wyglad",
                                                                                     "DELETE FROM  Mapy",
@@ -249,11 +265,12 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                                                     "DELETE FROM  Pozycje",
                                                                                     "DELETE FROM  Postacie",
                                                                                     "DELETE FROM  Umiejetnosci",
-                                                                                    "DELETE FROM  Umiejetnosci_Postac"
+                                                                                    "DELETE FROM  Umiejetnosci_Postac",
+                                                                                    "COMMIT"
 
         });
 
-        public static List<string> createViews = new List<string>(new string[]
+        public static LinkedList<string> createViews = new LinkedList<string>(new string[]
         {
             @"CREATE OR REPLACE VIEW Gracze_na_mapach AS
                                             SELECT m.name,COUNT(p.ID) as ilosc_graczy
@@ -289,10 +306,11 @@ namespace mmo_pd_db_client.Manual.DB.Constants
              SELECT * FROM Postacie p
              WHERE p.look_id = wyg.ID
              AND RACE_ID BETWEEN 1 AND 3
-             )"
+             )",
+            "COMMIT"
         });
 
-        public static List<string> dropTriggers = new List<string>(new string[]
+        public static LinkedList<string> dropTriggers = new LinkedList<string>(new string[]
         {
             "DROP TRIGGER klasy_postaci_trigg",
             "DROP TRIGGER konta_trigg",
@@ -305,10 +323,11 @@ namespace mmo_pd_db_client.Manual.DB.Constants
             "DROP TRIGGER umiejetnosci_trigg",
             "DROP TRIGGER umiejetnosci_postac_trigg",
             "DROP TRIGGER wyglad_trigg",
-            "DROP TRIGGER bazowe_statystyki_trigg"
+            "DROP TRIGGER bazowe_statystyki_trigg",
+            "COMMIT"
         });
 
-        public static List<string> createTriggers = new List<string>(new string[]
+        public static LinkedList<string> createTriggers = new LinkedList<string>(new string[]
         {
             @"CREATE OR REPLACE TRIGGER klasy_postaci_trigg 
             BEFORE INSERT ON KLASY_POSTACI 
@@ -317,7 +336,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
               SELECT KLASY_POSTACI_SEQ.NEXTVAL
               INTO   :new.ID
               FROM   dual;
-            END",
+            END;",
             @"CREATE OR REPLACE TRIGGER konta_trigg 
                 BEFORE INSERT ON KONTA 
                 FOR EACH ROW
@@ -325,7 +344,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT KONTA_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER mapy_trigg 
                 BEFORE INSERT ON MAPY 
                 FOR EACH ROW
@@ -333,7 +352,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT MAPY_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER postacie_trigg 
                 BEFORE INSERT ON POSTACIE 
                 FOR EACH ROW
@@ -341,15 +360,15 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT POSTACIE_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER pozycje_trigg 
                 BEFORE INSERT ON POZYCJE 
                 FOR EACH ROW
                 BEGIN
-                  SELECT KLASY_POSTACI_SEQ.NEXTVAL
+                  SELECT POZYCJE_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER rasy_trigg 
                 BEFORE INSERT ON RASY 
                 FOR EACH ROW
@@ -357,7 +376,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT RASY_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER statystyki_trigg 
                 BEFORE INSERT ON STATYSTYKI 
                 FOR EACH ROW
@@ -365,7 +384,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT STATYSTYKI_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER typy_umiejetnosci_trigg 
                 BEFORE INSERT ON TYPY_UMIEJETNOSCI 
                 FOR EACH ROW
@@ -373,7 +392,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT TYPY_UMIEJETNOSCI_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER umiejetnosci_trigg 
                 BEFORE INSERT ON UMIEJETNOSCI 
                 FOR EACH ROW
@@ -381,7 +400,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT UMIEJETNOSCI_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER umiejetnosci_postac_trigg 
                 BEFORE INSERT ON UMIEJETNOSCI_POSTAC 
                 FOR EACH ROW
@@ -389,7 +408,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT UMIEJETNOSCI_POSTAC_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER wyglad_trigg 
                 BEFORE INSERT ON WYGLAD 
                 FOR EACH ROW
@@ -397,7 +416,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                   SELECT WYGLAD_SEQ.NEXTVAL
                   INTO   :new.ID
                   FROM   dual;
-                END",
+                END;",
             @"CREATE OR REPLACE TRIGGER bazowe_statystyki_trigg 
                 BEFORE INSERT ON BAZOWE_STATYSTYKI
                 FOR EACH ROW
@@ -405,17 +424,18 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                     SELECT Bazowe_Statystyki_seq.NEXTVAL
                     INTO :new.ID
                     FROM dual;
-                END"
+                END;"
 
         });
 
-        public static List<string> dropPackages = new List<string>(new string[]
+        public static LinkedList<string> dropPackages = new LinkedList<string>(new string[]
         {
             "DROP PACKAGE mmo",
-            "DROP PACKAGE mmo_test"
+            "DROP PACKAGE mmo_test",
+            "COMMIT"
         });
 
-        public static List<string> createPackagesHeaders = new List<string>(new string[]
+        public static LinkedList<string> createPackagesHeaders = new LinkedList<string>(new string[]
         {
             @"CREATE OR REPLACE PACKAGE mmo AS 
                                                        
@@ -438,7 +458,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
 END mmo_test;"
         });
 
-        public static List<string> createPackagesBody = new List<string>(new string[]
+        public static LinkedList<string> createPackagesBody = new LinkedList<string>(new string[]
         {
             @"CREATE OR REPLACE PACKAGE BODY mmo AS  
     FUNCTION znajdz_rase(rasa varchar2,plec WYGLAD.SEX%TYPE) RETURN NUMBER

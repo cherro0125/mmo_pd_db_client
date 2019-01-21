@@ -12,25 +12,28 @@ namespace mmo_pd_db_client
     {
         static void Main(string[] args)
         {
-            //    using (var context = new Entities1())
-            //    {
-            //        KLASY_POSTACI kp = context.KLASY_POSTACI.Find(1);
+            //using (var context = new Entities1())
+            //{
+            //    KLASY_POSTACI kp = context.KLASY_POSTACI.Find(1);
 
-            //        Console.WriteLine(kp.BAZOWE_STATYSTYKI.BASE_AG);
-            //        Console.ReadKey();
-            //    }
-               
+            //    Console.WriteLine(kp.BAZOWE_STATYSTYKI.BASE_AG);
+            //    Console.ReadKey();
+            //}
+
             DbOperation op = new DbOperation();
+
+            op.DropTables();
             op.DropSequences();
             op.CreateSequences();
-            op.DropTables();
             op.CreateTables();
             Console.WriteLine("----------------");
+            op.DropTriggers();
             op.CreateTriggers();
+            op.InsertExamplesData();
             op.DropPackages();
             op.CreatePackages();
             int test = op.dbProcedure.FindRace("human", 'm');
-            Console.WriteLine("Test: "+ test);
+            Console.WriteLine("Test: " + test);
             op.CloseConnection();
             Console.ReadKey();
 
