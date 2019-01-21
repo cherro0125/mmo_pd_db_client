@@ -41,6 +41,8 @@ namespace mmo_pd_db_client
             Console.WriteLine("Test3:" + test3);
             int test4 = op.dbProcedure.GeneratePosition();
             Console.WriteLine("Test4: "+ test4);
+            int test5 = op.dbProcedure.GenerateLook('d');
+            Console.WriteLine("Test5: " + test5);
             Console.ReadKey();
             op.CloseConnection();
 
