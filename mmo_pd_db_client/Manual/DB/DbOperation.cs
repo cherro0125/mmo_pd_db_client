@@ -197,11 +197,34 @@ namespace mmo_pd_db_client.Manual.DB
                     }
                     
                 }
-            
                     dbConnection.CloseConnection();
-                
+            }
+        }
 
 
+        public void CreateViews()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                foreach (string createViewSql in SqlQuery.createViews)
+                {
+                    try
+                    {
+                        cmd.CommandText = createViewSql;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine("Create view successful!");
+                    }
+                    catch (OracleException ex)
+                    {
+                        Console.WriteLine("Cannot create view!");
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception source: " + ex.Source);
+                    }
+
+                }
+                dbConnection.CloseConnection();
             }
         }
     }

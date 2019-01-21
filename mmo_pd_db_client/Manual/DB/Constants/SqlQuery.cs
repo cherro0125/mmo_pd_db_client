@@ -252,5 +252,44 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                                                     "DELETE FROM  Umiejetnosci_Postac"
 
         });
+
+        public static List<string> createViews = new List<string>(new string[]
+        {
+            @"CREATE OR REPLACE VIEW Gracze_na_mapach AS
+                                            SELECT m.name,COUNT(p.ID) as ilosc_graczy
+                                            FROM Mapy m
+                                            INNER JOIN Pozycje pos
+                                            ON m.ID = pos.map_id
+                                            INNER JOIN Postacie p
+                                            ON p.pos_id = pos.ID
+                                            GROUP BY m.name",
+            @"CREATE OR REPLACE VIEW Postacie_level_avg AS
+            SELECT k.email,k.login,p.nickname,s.ch_level FROM Postacie p
+            INNER JOIN Konta k
+            ON k.ID = p.acc_ID
+            INNER JOIN Statystyki s
+            ON p.stat_id = s.ID
+            WHERE s.CH_LEVEL > (SELECT AVG(CH_LEVEL) FROM Statystyki)",
+                        @"CREATE OR REPLACE VIEW konta_rejestracja_dzien AS
+            SELECT EXTRACT(DAY FROM k.created_at) as Dzien, COUNT(k.ID) as ilosc_kont 
+            FROM Konta k
+            GROUP BY EXTRACT(DAY FROM k.created_at)
+            ORDER BY EXTRACT(DAY FROM k.created_at)",
+                        @"CREATE OR REPLACE VIEW postacie_wysokosc_mapa AS
+            SELECT p.NICKNAME,m.name as nazwa_mapy, pos.z as wysokosc_na_mapie FROM Pozycje pos
+            INNER JOIN Postacie p
+            ON p.pos_id = pos.ID
+            INNER JOIN Mapy m
+            ON pos.map_id = m.ID
+            WHERE pos.z > (SELECT AVG(z) FROM Pozycje )",
+                        @"CREATE OR REPLACE VIEW wysokosci_widok AS
+             SELECT SUM(wyg.HEIGHT) as suma_wysokosci_pewnych_ras, MAX(wyg.HEIGHT) as najzwyzszy_z_pewnych_ras
+             FROM Wyglad wyg
+             WHERE EXISTS(
+             SELECT * FROM Postacie p
+             WHERE p.look_id = wyg.ID
+             AND RACE_ID BETWEEN 1 AND 3
+             )"
+        }); 
     }
 }
