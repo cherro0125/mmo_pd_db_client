@@ -37,6 +37,8 @@ namespace mmo_pd_db_client
             op.CloseConnection();
             int test2 = op.dbProcedure.FindClass("traitor");
             Console.WriteLine("Test2 klasa:" + test2);
+            bool test3 = op.dbProcedure.CheckIsAccountExists(55);
+            Console.WriteLine("Test3:" + test3);
             Console.ReadKey();
 
 

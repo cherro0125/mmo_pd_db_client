@@ -441,7 +441,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                        
                                                         FUNCTION znajdz_rase(rasa varchar2,plec WYGLAD.SEX%TYPE) RETURN NUMBER;
                                                         FUNCTION znajdz_klase(klasa varchar2) RETURN NUMBER;
-                                                        FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN BOOLEAN;
+                                                        FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN NUMBER;
                                                         FUNCTION generuj_pozycje RETURN NUMBER;
                                                         FUNCTION generuj_wyglad(plec WYGLAD.SEX%TYPE) RETURN NUMBER;
                                                         FUNCTION dodaj_statystyki(klasa number, rasa number) RETURN NUMBER;
@@ -536,7 +536,7 @@ END mmo_test;"
                 RETURN -1;
     END znajdz_klase;
     
-    FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN BOOLEAN
+    FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN NUMBER
     IS
     CURSOR konto_cursor IS SELECT ID FROM KONTA WHERE ID = acc_id;
     found boolean := false;
@@ -547,7 +547,7 @@ END mmo_test;"
             found := true;
         END LOOP;
         IF found = true THEN
-            RETURN TRUE;
+            RETURN 1;
         ELSE
             RAISE account_not_found;
         END IF;
@@ -555,11 +555,11 @@ END mmo_test;"
             WHEN account_not_found THEN
                 DBMS_OUTPUT.ENABLE;
                 DBMS_OUTPUT.PUT_LINE('Account not found');
-                RETURN FALSE;
+                RETURN 0;
             WHEN others THEN
                 DBMS_OUTPUT.ENABLE;
                 DBMS_OUTPUT.PUT_LINE('Other exception');
-                RETURN FALSE;
+                RETURN 0;
                 
     END sprawdz_czy_konto_istnieje;
     
@@ -687,7 +687,7 @@ END mmo_test;"
         g_class_id number;
         g_look_id number;
         g_pos_id number;
-        is_account_correct boolean;
+        is_account_correct NUMBER;
         stat_not_found EXCEPTION;
         race_not_found EXCEPTION;
         class_not_found EXCEPTION;
@@ -708,7 +708,7 @@ END mmo_test;"
                 IF g_class_id > 0 THEN
                     IF g_look_id > 0 THEN
                         IF g_pos_id > 0 THEN
-                            IF is_account_correct = true THEN
+                            IF is_account_correct = 1 THEN
                                 INSERT INTO POSTACIE VALUES(1,nick,g_stat_id,acc_id,g_race_id,g_class_id,g_look_id,g_pos_id) RETURNING ID INTO ret_val;
                                 RETURN ret_val;
                             ELSE
