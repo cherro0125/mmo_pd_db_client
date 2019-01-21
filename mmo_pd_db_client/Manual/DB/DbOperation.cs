@@ -227,5 +227,34 @@ namespace mmo_pd_db_client.Manual.DB
                 dbConnection.CloseConnection();
             }
         }
+
+
+
+
+        public void DroppTriggers()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                foreach (string query in SqlQuery.dropTriggers)
+                {
+                    try
+                    {
+                        cmd.CommandText = query;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine("Drop trriger successful!");
+                    }
+                    catch (OracleException ex)
+                    {
+                        Console.WriteLine("Cannot drop trigger!");
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception source: " + ex.Source);
+                    }
+
+                }
+                dbConnection.CloseConnection();
+            }
+        }
     }
 }

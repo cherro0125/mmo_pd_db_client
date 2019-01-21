@@ -291,5 +291,21 @@ namespace mmo_pd_db_client.Manual.DB.Constants
              AND RACE_ID BETWEEN 1 AND 3
              )"
         }); 
+
+        public static List<string> dropTriggers  = new List<string>(new string[]
+        {
+            "DROP TRIGGER klasy_postaci_trigg",
+            "DROP TRIGGER konta_trigg",
+            "DROP TRIGGER mapy_trigg",
+            "DROP TRIGGER postacie_trigg",
+            "DROP TRIGGER pozycje_trigg",
+            "DROP TRIGGER rasy_trigg",
+            "DROP TRIGGER statystyki_trigg",
+            "DROP TRIGGER typy_umiejetnosci_trigg",
+            "DROP TRIGGER umiejetnosci_trigg",
+            "DROP TRIGGER umiejetnosci_postac_trigg",
+            "DROP TRIGGER wyglad_trigg",
+            "DROP TRIGGER bazowe_statystyki_trigg"
+        });
     }
 }
