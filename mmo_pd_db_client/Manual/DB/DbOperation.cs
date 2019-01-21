@@ -249,6 +249,83 @@ namespace mmo_pd_db_client.Manual.DB
             
         }
 
+        public void DropPackages()
+        {
+            dbConnection.OpenConnection();
+
+            OracleCommand cmd = dbConnection.connection.CreateCommand();
+            foreach (string query in SqlQuery.dropPackages)
+            {
+                try
+                {
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Drop package successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot drop package!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+
+            }
+
+        }
+
+        public void CreatePackagesHeaders()
+        {
+            dbConnection.OpenConnection();
+
+            OracleCommand cmd = dbConnection.connection.CreateCommand();
+            foreach (string query in SqlQuery.createPackagesHeaders)
+            {
+                try
+                {
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Create package header successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot create package header!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+
+            }
+
+        }
+
+        public void CreatePackagesBodies()
+        {
+            dbConnection.OpenConnection();
+
+            OracleCommand cmd = dbConnection.connection.CreateCommand();
+            foreach (string query in SqlQuery.createPackagesBody)
+            {
+                try
+                {
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Create package body successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot create package body!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+
+            }
+
+        }
+
+        public void CreatePackages()
+        {
+            CreatePackagesHeaders();
+            CreatePackagesBodies();
+        }
 
 
 

@@ -228,7 +228,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
             "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,3,4)",
             "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,4,5)",
             "INSERT INTO Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,5,3)"
-        }); 
+        });
 
         public static string insertNotValidData = @"BEGIN
                                                     execute immediate 'INSERT INTO Umiejetnosci_Postac VALUES(1,5,5)';
@@ -290,9 +290,9 @@ namespace mmo_pd_db_client.Manual.DB.Constants
              WHERE p.look_id = wyg.ID
              AND RACE_ID BETWEEN 1 AND 3
              )"
-        }); 
+        });
 
-        public static List<string> dropTriggers  = new List<string>(new string[]
+        public static List<string> dropTriggers = new List<string>(new string[]
         {
             "DROP TRIGGER klasy_postaci_trigg",
             "DROP TRIGGER konta_trigg",
@@ -407,6 +407,447 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                     FROM dual;
                 END"
 
+        });
+
+        public static List<string> dropPackages = new List<string>(new string[]
+        {
+            "DROP PACKAGE mmo",
+            "DROP PACKAGE mmo_test"
+        });
+
+        public static List<string> createPackagesHeaders = new List<string>(new string[]
+        {
+            @"CREATE OR REPLACE PACKAGE mmo AS 
+                                                       
+                                                        FUNCTION znajdz_rase(rasa varchar2,plec WYGLAD.SEX%TYPE) RETURN NUMBER;
+                                                        FUNCTION znajdz_klase(klasa varchar2) RETURN NUMBER;
+                                                        FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN BOOLEAN;
+                                                        FUNCTION generuj_pozycje RETURN NUMBER;
+                                                        FUNCTION generuj_wyglad(plec WYGLAD.SEX%TYPE) RETURN NUMBER;
+                                                        FUNCTION dodaj_statystyki(klasa number, rasa number) RETURN NUMBER;
+                                                        FUNCTION dodaj_postac(acc_id KONTA.ID%TYPE, nick POSTACIE.NICKNAME%TYPE, rasa varchar2, klasa varchar2, plec WYGLAD.SEX%TYPE ) RETURN NUMBER; 
+                                                    END mmo",
+            @"CREATE OR REPLACE PACKAGE mmo_test AS
+    PROCEDURE znajdz_rase(good_data boolean);
+    PROCEDURE znajdz_klase(good_data boolean);
+    PROCEDURE sprawdz_czy_konto_istnieje(good_data boolean);
+    PROCEDURE generuj_pozycje;
+    PROCEDURE generuj_wyglad(good_data boolean);
+    PROCEDURE dodaj_statystyki(good_data boolean);
+    PROCEDURE dodaj_postac;
+END mmo_test"
+        });
+
+        public static List<string> createPackagesBody = new List<string>(new string[]
+        {
+            @"CREATE OR REPLACE PACKAGE BODY mmo AS  
+    FUNCTION znajdz_rase(rasa varchar2,plec WYGLAD.SEX%TYPE) RETURN NUMBER
+    IS
+    sex_not_found EXCEPTION;
+    race_not_found EXCEPTION;
+    BEGIN
+        IF rasa = 'human' THEN
+            IF plec = 'm' THEN
+                RETURN 1;
+            ELSIF plec = 'k' THEN
+                RETURN 1;
+            ELSE
+                RAISE sex_not_found;
+            END IF;
+        ELSIF rasa = 'orc' THEN
+            IF plec = 'm' THEN
+                RETURN 3;
+            ELSIF plec = 'k' THEN
+                RETURN 2;
+            ELSE
+                RAISE sex_not_found;
+            END IF;
+        ELSIF rasa = 'elf' THEN
+            IF plec = 'm' THEN
+                RETURN 5;
+            ELSIF plec = 'k' THEN
+                RETURN 4;
+            ELSE
+                RAISE sex_not_found;
+            END IF;
+        ELSE
+            RAISE race_not_found;
+        END IF;
+        EXCEPTION
+        WHEN sex_not_found THEN
+            DBMS_OUTPUT.ENABLE;
+            DBMS_OUTPUT.PUT_LINE('Sex not found');
+            RETURN -1;
+        WHEN race_not_found THEN
+            DBMS_OUTPUT.ENABLE;
+            DBMS_OUTPUT.PUT_LINE('Race not found');
+            RETURN -1;     
+        WHEN others THEN
+            DBMS_OUTPUT.ENABLE;
+            DBMS_OUTPUT.PUT_LINE('Other exception');
+            RETURN -1;
+    END znajdz_rase;
+    
+    FUNCTION znajdz_klase(klasa varchar2) RETURN NUMBER
+    IS
+        CURSOR klasa_cursor IS SELECT ID,CLASS_NAME, B_STAT_ID FROM KLASY_POSTACI WHERE CLASS_NAME = klasa;
+        found boolean := false;
+        klasa_id KLASY_POSTACI.ID%TYPE;
+        class_not_found EXCEPTION;
+    BEGIN
+        FOR rec IN klasa_cursor
+        LOOP
+            found := true;
+            klasa_id := rec.ID;
+        END LOOP;
+        IF found = true THEN
+            RETURN klasa_id;
+        ELSE
+            RAISE class_not_found;
+        END IF;
+        EXCEPTION
+            WHEN class_not_found THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Class not found');
+                RETURN -1;
+            WHEN others THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Other exception');
+                RETURN -1;
+    END znajdz_klase;
+    
+    FUNCTION sprawdz_czy_konto_istnieje(acc_id KONTA.ID%TYPE) RETURN BOOLEAN
+    IS
+    CURSOR konto_cursor IS SELECT ID FROM KONTA WHERE ID = acc_id;
+    found boolean := false;
+    account_not_found EXCEPTION;
+    BEGIN
+        FOR rec IN konto_cursor
+        LOOP
+            found := true;
+        END LOOP;
+        IF found = true THEN
+            RETURN TRUE;
+        ELSE
+            RAISE account_not_found;
+        END IF;
+        EXCEPTION
+            WHEN account_not_found THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Account not found');
+                RETURN FALSE;
+            WHEN others THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Other exception');
+                RETURN FALSE;
+                
+    END sprawdz_czy_konto_istnieje;
+    
+    FUNCTION generuj_pozycje RETURN NUMBER
+    IS
+        rand_x number := DBMS_RANDOM.value(low => 1, high => 10);
+        rand_y number := DBMS_RANDOM.value(low => 1, high => 10);
+        rand_z number := DBMS_RANDOM.value(low => 1, high => 10);
+        map_id number;
+        CURSOR map_cursor IS SELECT ID FROM MAPY WHERE rownum = 1;
+        maps_not_found EXCEPTION;
+        map_found boolean :=false;
+        ret_id number;
+    BEGIN
+        FOR rec IN map_cursor
+        LOOP
+            map_found := true;
+            map_id := rec.ID;
+        END LOOP;
+        IF map_found = true THEN
+            INSERT INTO POZYCJE VALUES(1,rand_x,rand_y,rand_z,map_id) RETURNING ID INTO ret_id;
+            RETURN ret_id;
+        ELSE
+            RAISE maps_not_found;
+        END IF;
+        EXCEPTION
+            WHEN maps_not_found THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Maps not found');
+                RETURN -1;
+       
+    END generuj_pozycje;
+    
+    
+    FUNCTION generuj_wyglad(plec WYGLAD.SEX%TYPE) RETURN NUMBER
+    IS
+        g_height number := ROUND(DBMS_RANDOM.value(140, 200));
+        g_chest number := ROUND(DBMS_RANDOM.value(20,65));
+        g_skin_color varchar(7) :=  '#'||lpad(trim(to_char(floor(dbms_random.value(0,32767)),'XXXXXX')),6,'0');
+        g_hair_color varchar(7) :=  '#'||lpad(trim(to_char(floor(dbms_random.value(0,32767)),'XXXXXX')),6,'0');
+        g_eye_color varchar(7)  :=  '#'||lpad(trim(to_char(floor(dbms_random.value(0,32767)),'XXXXXX')),6,'0');
+        g_hair number := ROUND(DBMS_RANDOM.VALUE(1,3));
+        sex_not_found EXCEPTION;
+        ret_val number;
+    BEGIN
+        IF plec = 'm' THEN
+            INSERT INTO WYGLAD VALUES(1,plec,g_height,g_chest,g_skin_color,g_hair_color,g_eye_color,g_hair) RETURNING ID INTO ret_val;
+            RETURN ret_val;
+        ELSIF plec = 'k' THEN
+           INSERT INTO WYGLAD VALUES(1,plec,g_height,g_chest,g_skin_color,g_hair_color,g_eye_color,g_hair) RETURNING ID INTO ret_val;
+            RETURN ret_val;
+        ELSE 
+         RAISE sex_not_found;
+        END IF;
+        EXCEPTION 
+            WHEN sex_not_found THEN
+                DBMS_OUTPUT.ENABLE;
+                DBMS_OUTPUT.PUT_LINE('Sex not found');
+                RETURN -1;
+                
+    END generuj_wyglad;
+    
+    FUNCTION dodaj_statystyki(klasa number, rasa number) RETURN NUMBER
+    IS
+        CURSOR klasa_cursor IS SELECT B_STAT_ID FROM KLASY_POSTACI WHERE ID = klasa;
+        CURSOR rasa_cursor  IS SELECT B_STAT_ID FROM RASY WHERE ID = rasa;
+        g_hp number := 0;
+        g_mana number := 0;
+        g_str number := 0;
+        g_agility number := 0;
+        g_int number :=0;
+        g_stamina number :=0;
+        found_class boolean := false;
+        found_race boolean := false;
+        not_found_class EXCEPTION;
+        not_found_race EXCEPTION;
+        b_klasa_id number;
+        b_rasa_id number;
+        ret_val number;
+    BEGIN
+        FOR rec_klasa IN klasa_cursor
+        LOOP
+            found_class := true;
+            b_klasa_id := rec_klasa.B_STAT_ID;
+        END LOOP;
+        FOR rec_rasa in rasa_cursor
+        LOOP
+            found_race := true;
+            b_rasa_id := rec_rasa.B_STAT_ID;
+        END LOOP;
+        IF found_class = true THEN
+            IF found_race = true THEN
+                FOR  rec IN (SELECT * FROM BAZOWE_STATYSTYKI WHERE ID = b_klasa_id OR ID = b_rasa_id)
+                LOOP
+                        g_hp := g_hp +rec.BASE_HP;
+                        g_mana := g_mana+rec.BASE_MP;
+                        g_str := g_str+rec.BASE_STR;
+                        g_agility := g_agility+rec.BASE_AG;
+                        g_int := g_int+rec.BASE_INT;
+                        g_stamina := g_stamina+rec.BASE_STAMINA;
+                 END LOOP rec;
+                 INSERT INTO STATYSTYKI VALUES(1,1,g_hp,g_mana,g_str,g_agility,g_int,g_stamina,0) RETURNING ID INTO ret_val;
+                 RETURN ret_val;
+            ELSE
+                RAISE not_found_race;
+            END IF;
+        ELSE
+            RAISE not_found_class;
+        END IF;
+        EXCEPTION
+            WHEN not_found_race THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Race not found');
+                    RETURN -1;                
+            WHEN not_found_class THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Class not found');
+                    RETURN -1;                
+    END dodaj_statystyki;
+    
+    FUNCTION dodaj_postac(acc_id KONTA.ID%TYPE, nick POSTACIE.NICKNAME%TYPE, rasa varchar2, klasa varchar2, plec WYGLAD.SEX%TYPE ) RETURN NUMBER
+    IS
+        g_stat_id number;
+        g_race_id number;
+        g_class_id number;
+        g_look_id number;
+        g_pos_id number;
+        is_account_correct boolean;
+        stat_not_found EXCEPTION;
+        race_not_found EXCEPTION;
+        class_not_found EXCEPTION;
+        look_not_found EXCEPTION;
+        pos_not_found EXCEPTION;
+        account_not_found EXCEPTION;
+        ret_val number;
+    BEGIN
+        g_race_id := mmo.znajdz_rase(rasa,plec);
+        g_class_id := mmo.znajdz_klase(klasa);
+        is_account_correct := mmo.sprawdz_czy_konto_istnieje(acc_id);
+        g_pos_id := mmo.generuj_pozycje;
+        g_look_id := mmo.generuj_wyglad(plec);
+        g_stat_id := mmo.dodaj_statystyki(g_class_id,g_race_id);
+        
+        IF g_stat_id > 0 THEN
+            IF g_race_id > 0 THEN
+                IF g_class_id > 0 THEN
+                    IF g_look_id > 0 THEN
+                        IF g_pos_id > 0 THEN
+                            IF is_account_correct = true THEN
+                                INSERT INTO POSTACIE VALUES(1,nick,g_stat_id,acc_id,g_race_id,g_class_id,g_look_id,g_pos_id) RETURNING ID INTO ret_val;
+                                RETURN ret_val;
+                            ELSE
+                                RAISE account_not_found;
+                            END IF;
+                        ELSE
+                            RAISE pos_not_found;
+                        END IF;
+                    ELSE
+                     RAISE look_not_found;
+                    END IF;
+                ELSE
+                    RAISE class_not_found;
+                END IF;
+            ELSE
+                RAISE race_not_found;
+            END IF;
+        ELSE
+            RAISE stat_not_found;
+        END IF;
+        EXCEPTION 
+            WHEN stat_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Stat not found');
+                    RETURN -1;  
+            WHEN race_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Race not found');
+                    RETURN -1;  
+            WHEN class_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Class not found');
+                    RETURN -1;  
+            WHEN look_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Look not found');
+                    RETURN -1;  
+            WHEN pos_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Pos not found');
+                    RETURN -1;  
+            WHEN account_not_found THEN
+                    DBMS_OUTPUT.ENABLE;
+                    DBMS_OUTPUT.PUT_LINE('Account not found');
+                    RETURN -1;              
+    END dodaj_postac;
+ 
+
+END mmo",
+            @"CREATE OR REPLACE PACKAGE BODY mmo_test AS
+PROCEDURE znajdz_rase(good_data boolean)
+IS
+test_var number;
+BEGIN
+IF good_data = true THEN
+    test_var := mmo.znajdz_rase('human','m');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found'|| test_var);
+ELSE
+    test_var := mmo.znajdz_rase('test','m');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found'|| test_var);
+    test_var := mmo.znajdz_rase('human','a');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found'|| test_var);
+END IF;
+
+END znajdz_rase;
+
+PROCEDURE znajdz_klase(good_data boolean)
+IS
+test_var number;
+BEGIN
+IF good_data = true THEN
+    test_var := mmo.znajdz_klase('warrior');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found '|| test_var);
+ELSE
+    test_var := mmo.znajdz_klase('test');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found '|| test_var);
+END IF;
+
+END znajdz_klase;
+
+PROCEDURE sprawdz_czy_konto_istnieje(good_data boolean)
+IS
+test_var boolean;
+BEGIN
+    IF good_data = true THEN
+        test_var := mmo.sprawdz_czy_konto_istnieje(1);
+        DBMS_OUTPUT.ENABLE;
+        IF test_var = true THEN
+            DBMS_OUTPUT.PUT_LINE('Exists');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Not exists');
+        END IF;
+        
+    ELSE
+        test_var := mmo.sprawdz_czy_konto_istnieje(99);
+        DBMS_OUTPUT.ENABLE;
+        IF test_var = true THEN
+            DBMS_OUTPUT.PUT_LINE('Exists');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Not exists');
+        END IF;
+    END IF;
+END sprawdz_czy_konto_istnieje;
+
+PROCEDURE generuj_pozycje
+AS
+
+    test_var number;
+BEGIN
+    test_var := mmo.generuj_pozycje;
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found '|| test_var);
+END generuj_pozycje;
+
+PROCEDURE generuj_wyglad(good_data boolean)
+IS
+    test_var number;  
+BEGIN
+    IF good_data = true THEN
+        test_var := mmo.generuj_wyglad('m');
+        DBMS_OUTPUT.ENABLE;
+        DBMS_OUTPUT.PUT_LINE('Found '|| test_var);        
+    ELSE
+        test_var := mmo.generuj_wyglad('a');
+        DBMS_OUTPUT.ENABLE;
+        DBMS_OUTPUT.PUT_LINE('Found '|| test_var);           
+    END IF;
+    
+    END generuj_wyglad;
+    
+    PROCEDURE dodaj_statystyki(good_data boolean)
+    IS
+        test_var number;
+    BEGIN
+        IF good_data = true THEN
+        test_var := mmo.dodaj_statystyki(1,1);
+        DBMS_OUTPUT.ENABLE;
+        DBMS_OUTPUT.PUT_LINE('Found '|| test_var);             
+        ELSE
+        test_var := mmo.dodaj_statystyki(90,90);
+        DBMS_OUTPUT.ENABLE;
+        DBMS_OUTPUT.PUT_LINE('Found '|| test_var);         
+        END IF;
+    END dodaj_statystyki;
+    PROCEDURE dodaj_postac
+    IS
+    test_val number;
+    BEGIN
+    test_val:=mmo.dodaj_postac(1,'testujeplsql','human','warrior','m');
+    DBMS_OUTPUT.ENABLE;
+    DBMS_OUTPUT.PUT_LINE('Found '|| test_val); 
+    END dodaj_postac;
+
+END mmo_test"
         });
     }
 }
