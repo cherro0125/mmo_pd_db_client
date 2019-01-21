@@ -45,6 +45,8 @@ namespace mmo_pd_db_client
             Console.WriteLine("Test5: " + test5);
             int test6 = op.dbProcedure.AddStatistics(1,1);
             Console.WriteLine("Test6: " + test6);
+            int test7 = op.dbProcedure.AddCharacter(1, "testCSharp", "human", "warrior", 'm');
+            Console.WriteLine("Test7: " + test7);
             Console.ReadKey();
             op.CloseConnection();
 
