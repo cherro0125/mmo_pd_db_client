@@ -126,22 +126,24 @@ namespace mmo_pd_db_client.Manual.DB
             using (dbConnection.connection)
             {
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
-                try
+                foreach (string insertSql in SqlQuery.insertExampleData)
                 {
-                    cmd.CommandText = SqlQuery.insertExampleDatas;
-                    cmd.ExecuteNonQuery();
-                    Console.WriteLine("Insert data successful!");
+                    try
+                    {
+                        cmd.CommandText = insertSql;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine("Insert data successful!");
+                    }
+                    catch (OracleException ex)
+                    {
+                        Console.WriteLine("Cannot insert data!");
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception source: " + ex.Source);
+                    }
                 }
-                catch (OracleException ex)
-                {
-                    Console.WriteLine("Cannot insert data!");
-                    Console.WriteLine("Exception message: " + ex.Message);
-                    Console.WriteLine("Exception source: " + ex.Source);
-                }
-                finally
-                {
+     
                     dbConnection.CloseConnection();
-                }
+                
 
             }
         }
@@ -168,6 +170,37 @@ namespace mmo_pd_db_client.Manual.DB
                 {
                     dbConnection.CloseConnection();
                 }
+
+            }
+        }
+
+
+        public void TruncateAllTables()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                foreach (string truncateSql in SqlQuery.truncateTables)
+                {
+                    try
+                    {
+                        cmd.CommandText = truncateSql;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine("Truncate table successful!");
+                    }
+                    catch (OracleException ex)
+                    {
+                        Console.WriteLine("Cannot truncate tables!");
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception source: " + ex.Source);
+                    }
+                    
+                }
+            
+                    dbConnection.CloseConnection();
+                
+
 
             }
         }
