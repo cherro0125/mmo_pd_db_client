@@ -7,10 +7,12 @@ namespace mmo_pd_db_client.Manual.DB
     public class DbOperation
     {
         private DbConnection dbConnection;
+        public DbProcedure dbProcedure;
 
         public DbOperation()
         {
             dbConnection = new DbConnection();
+            dbProcedure = new DbProcedure(dbConnection);
         }
 
     
