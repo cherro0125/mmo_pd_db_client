@@ -145,5 +145,86 @@
                                                     execute immediate ' DROP SEQUENCE Umiejetnosci_seq ';
                                                     execute immediate ' DROP SEQUENCE Umiejetnosci_Postac_seq ';
                                                     END;";
+
+        public static string insertExampleDatas = @"BEGIN
+                                                    execute immediate ' INSERT INTO  Konta VALUES(Konta_seq.NEXTVAL,''janush@nos.pl'',''passat88'',''DWDWDWDWD3131313DDWDWDSASADADADADAD##!#!#!@@'',SYSDATE)';
+                                                    execute immediate ' INSERT INTO  Konta VALUES(Konta_seq.NEXTVAL,''janosik@pieronie.pl'',''pyzdrach'',''121313DDWDWD##!#dSASASASAS!#!@@'',SYSDATE)';
+                                                    execute immediate ' INSERT INTO  Konta VALUES(Konta_seq.NEXTVAL,''krzysztof@marynarz.pl'',''chcialbymbyc'',''121313DDWDWD##!#dSASASADAE!#!@@'',SYSDATE+5)';
+                                                    execute immediate ' INSERT INTO  Konta VALUES(Konta_seq.NEXTVAL,''krawczyk@piosenkarzem.pl'',''songmebabe'',''331313DDWDWD##!#dSAAASASAS!#!@@'',SYSDATE+1)';
+                                                    execute immediate ' INSERT INTO  Konta VALUES(Konta_seq.NEXTVAL,''maryla@rodo.eu'',''neverdiebeforenewyear'',''121313DDWDWD##!#dSASASASAS!#!@@'',SYSDATE+3)';
+
+                                                    execute immediate ' INSERT INTO  Wyglad VALUES(Wyglad_seq.NEXTVAL,''m'',170,30,''#FF00AA'',''#FFBBCC'',''#0F00AA'',1)';
+                                                    execute immediate ' INSERT INTO  Wyglad VALUES(Wyglad_seq.NEXTVAL,''k'',140,70,''#FFB0AA'',''#CCCCAA'',''#FA00AA'',1)';
+                                                    execute immediate ' INSERT INTO  Wyglad VALUES(Wyglad_seq.NEXTVAL,''m'',150,90,''#FFAAAA'',''#CCBBAA'',''#FD00AA'',2)';
+                                                    execute immediate ' INSERT INTO  Wyglad VALUES(Wyglad_seq.NEXTVAL,''m'',160,120,''#FFB0CC'',''#CCFFCC'',''#2F00AA'',3)';
+                                                    execute immediate ' INSERT INTO  Wyglad VALUES(Wyglad_seq.NEXTVAL,''k'',190,150,''#DDB0AA'',''#AABBCC'',''#3F40AA'',2)';
+
+                                                    execute immediate ' INSERT INTO  Mapy VALUES(Mapy_seq.NEXTVAL,''map_2tsuded'')';
+                                                    execute immediate ' INSERT INTO  Mapy VALUES(Mapy_seq.NEXTVAL,''map_atlantide'')';
+                                                    execute immediate ' INSERT INTO  Mapy VALUES(Mapy_seq.NEXTVAL,''map_slask'')';
+                                                    execute immediate ' INSERT INTO  Mapy VALUES(Mapy_seq.NEXTVAL,''map_sosnowiec'')';
+                                                    execute immediate ' INSERT INTO  Mapy VALUES(Mapy_seq.NEXTVAL,''map_janosikfield'')';
+
+                                                    execute immediate ' INSERT INTO  Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,200,300,4,20,33,100)';
+                                                    execute immediate ' INSERT INTO  Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,500,200,45,50,4,200)';
+                                                    execute immediate ' INSERT INTO  Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,1000,300,24,25,4,500)';
+                                                    execute immediate ' INSERT INTO  Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,2000,1000,34,30,3,600)';
+                                                    execute immediate ' INSERT INTO  Bazowe_statystyki VALUES(Bazowe_statystyki_seq.NEXTVAL,100,1400,74,55,3,400)';
+
+
+                                                    execute immediate ' INSERT INTO  Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,''active_fire_mage'')';
+                                                    execute immediate ' INSERT INTO  Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,''passive_warrior'')';
+                                                    execute immediate ' INSERT INTO  Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,''passive_mage'')';
+                                                    execute immediate ' INSERT INTO  Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,''passive_hunter'')';
+                                                    execute immediate ' INSERT INTO  Typy_umiejetnosci VALUES(Typy_umiejetnosci_seq.NEXTVAL,''active_speed_rouge'')';
+
+
+                                                    execute immediate ' INSERT INTO  Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,''mage'',1)';
+                                                    execute immediate ' INSERT INTO  Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,''warrior'',2)';
+                                                    execute immediate ' INSERT INTO  Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,''hunter'',3)';
+                                                    execute immediate ' INSERT INTO  Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,''rouge'',4)';
+                                                    execute immediate ' INSERT INTO  Klasy_postaci VALUES(Klasy_postaci_seq.NEXTVAL,''traitor'',5)';
+
+
+                                                    execute immediate ' INSERT INTO  Rasy VALUES(Rasy_seq.NEXTVAL,1,''human_man_model_01'')';
+                                                    execute immediate ' INSERT INTO  Rasy VALUES(Rasy_seq.NEXTVAL,2,''orc_woman_model_01'')';
+                                                    execute immediate ' INSERT INTO  Rasy VALUES(Rasy_seq.NEXTVAL,2,''orc_man_model_01'')';
+                                                    execute immediate ' INSERT INTO  Rasy VALUES(Rasy_seq.NEXTVAL,2,''elf_woman_model_01'')';
+                                                    execute immediate ' INSERT INTO  Rasy VALUES(Rasy_seq.NEXTVAL,2,''elf_man_model_01'')';
+
+
+                                                    execute immediate ' INSERT INTO  Pozycje VALUES(Pozycje_seq.NEXTVAL,10,20,302,1)';
+                                                    execute immediate ' INSERT INTO  Pozycje VALUES(Pozycje_seq.NEXTVAL,20,5.5,372.55,2)';
+                                                    execute immediate ' INSERT INTO  Pozycje VALUES(Pozycje_seq.NEXTVAL,50,6.5,40.65,3)';
+                                                    execute immediate ' INSERT INTO  Pozycje VALUES(Pozycje_seq.NEXTVAL,25,7.5,40.55,4)';
+                                                    execute immediate ' INSERT INTO  Pozycje VALUES(Pozycje_seq.NEXTVAL,22,12.5,55.55,4)';
+
+
+                                                    execute immediate ' INSERT INTO  Statystyki VALUES(Statystyki_seq.NEXTVAL,10,100,200,10,25,33,120,3)';
+                                                    execute immediate ' INSERT INTO  Statystyki VALUES(Statystyki_seq.NEXTVAL,20,200,400,60,26,34,112,11)';
+                                                    execute immediate ' INSERT INTO  Statystyki VALUES(Statystyki_seq.NEXTVAL,30,300,300,50,27,33,997,2222)';
+                                                    execute immediate ' INSERT INTO  Statystyki VALUES(Statystyki_seq.NEXTVAL,40,400,100,40,28,32,666,2224)';
+                                                    execute immediate ' INSERT INTO  Statystyki VALUES(Statystyki_seq.NEXTVAL,200,500,50,20,30,31,69,2222)';
+
+
+                                                    execute immediate ' INSERT INTO  Postacie VALUES(Postacie_seq.NEXTVAL,''WladcaPassata'',1,1,1,1,1,1)';
+                                                    execute immediate ' INSERT INTO  Postacie VALUES(Postacie_seq.NEXTVAL,''VernonRochePatriotaJakichMalo'',2,2,2,2,2,2)';
+                                                    execute immediate ' INSERT INTO  Postacie VALUES(Postacie_seq.NEXTVAL,''Legolas5214124PL'',3,4,3,3,3,3)';
+                                                    execute immediate ' INSERT INTO  Postacie VALUES(Postacie_seq.NEXTVAL,''Anubisos'',4,5,2,4,4,4)';
+                                                    execute immediate ' INSERT INTO  Postacie VALUES(Postacie_seq.NEXTVAL,''666Kitten666'',5,3,5,4,4,4)';
+
+                                                    execute immediate ' INSERT INTO  Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,1,''Fireball'',150)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,2,''Iron Skin'',150)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,3,''Inteligence of Asgard'',150)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,4,''Born to be wild'',150)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci VALUES(Umiejetnosci_seq.NEXTVAL,5,''Run Forest! Run!'',150)';
+
+
+                                                    execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,1,1)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,2,2)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,3,4)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,4,5)';
+                                                    execute immediate ' INSERT INTO  Umiejetnosci_Postac VALUES(Umiejetnosci_Postac_seq.NEXTVAL,5,3)';
+                                                    END;";
     }
 }

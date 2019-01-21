@@ -118,5 +118,32 @@ namespace mmo_pd_db_client.Manual.DB
          
             }
         }
+
+
+        public void InsertExamplesData()
+        {
+            dbConnection.OpenConnection();
+            using (dbConnection.connection)
+            {
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                try
+                {
+                    cmd.CommandText = SqlQuery.insertExampleDatas;
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Insert data successful!");
+                }
+                catch (OracleException ex)
+                {
+                    Console.WriteLine("Cannot insert data!");
+                    Console.WriteLine("Exception message: " + ex.Message);
+                    Console.WriteLine("Exception source: " + ex.Source);
+                }
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
+
+            }
+        }
     }
 }
