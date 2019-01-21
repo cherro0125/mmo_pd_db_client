@@ -307,5 +307,106 @@ namespace mmo_pd_db_client.Manual.DB.Constants
             "DROP TRIGGER wyglad_trigg",
             "DROP TRIGGER bazowe_statystyki_trigg"
         });
+
+        public static List<string> createTriggers = new List<string>(new string[]
+        {
+            @"CREATE OR REPLACE TRIGGER klasy_postaci_trigg 
+            BEFORE INSERT ON KLASY_POSTACI 
+            FOR EACH ROW
+            BEGIN
+              SELECT KLASY_POSTACI_SEQ.NEXTVAL
+              INTO   :new.ID
+              FROM   dual;
+            END",
+            @"CREATE OR REPLACE TRIGGER konta_trigg 
+                BEFORE INSERT ON KONTA 
+                FOR EACH ROW
+                BEGIN
+                  SELECT KONTA_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER mapy_trigg 
+                BEFORE INSERT ON MAPY 
+                FOR EACH ROW
+                BEGIN
+                  SELECT MAPY_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER postacie_trigg 
+                BEFORE INSERT ON POSTACIE 
+                FOR EACH ROW
+                BEGIN
+                  SELECT POSTACIE_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER pozycje_trigg 
+                BEFORE INSERT ON POZYCJE 
+                FOR EACH ROW
+                BEGIN
+                  SELECT KLASY_POSTACI_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER rasy_trigg 
+                BEFORE INSERT ON RASY 
+                FOR EACH ROW
+                BEGIN
+                  SELECT RASY_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER statystyki_trigg 
+                BEFORE INSERT ON STATYSTYKI 
+                FOR EACH ROW
+                BEGIN
+                  SELECT STATYSTYKI_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER typy_umiejetnosci_trigg 
+                BEFORE INSERT ON TYPY_UMIEJETNOSCI 
+                FOR EACH ROW
+                BEGIN
+                  SELECT TYPY_UMIEJETNOSCI_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER umiejetnosci_trigg 
+                BEFORE INSERT ON UMIEJETNOSCI 
+                FOR EACH ROW
+                BEGIN
+                  SELECT UMIEJETNOSCI_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER umiejetnosci_postac_trigg 
+                BEFORE INSERT ON UMIEJETNOSCI_POSTAC 
+                FOR EACH ROW
+                BEGIN
+                  SELECT UMIEJETNOSCI_POSTAC_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER wyglad_trigg 
+                BEFORE INSERT ON WYGLAD 
+                FOR EACH ROW
+                BEGIN
+                  SELECT WYGLAD_SEQ.NEXTVAL
+                  INTO   :new.ID
+                  FROM   dual;
+                END",
+            @"CREATE OR REPLACE TRIGGER bazowe_statystyki_trigg 
+                BEFORE INSERT ON BAZOWE_STATYSTYKI
+                FOR EACH ROW
+                BEGIN
+                    SELECT Bazowe_Statystyki_seq.NEXTVAL
+                    INTO :new.ID
+                    FROM dual;
+                END"
+
+        });
     }
 }

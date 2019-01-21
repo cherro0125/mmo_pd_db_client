@@ -21,8 +21,11 @@ namespace mmo_pd_db_client
             //    }
                
             DbOperation op = new DbOperation();
-            op.DroppTriggers();
-
+            op.CreateSequences();
+            op.CreateTables();
+            Console.WriteLine("----------------");
+            op.CreateTriggers();
+            op.CloseConnection();
             Console.ReadKey();
 
 

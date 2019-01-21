@@ -16,8 +16,7 @@ namespace mmo_pd_db_client.Manual.DB
         public  void DropTables()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+         
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 try
                 {
@@ -32,19 +31,15 @@ namespace mmo_pd_db_client.Manual.DB
                     Console.WriteLine("Exception source: " + ex.Source);
 
                 }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
             
-            }
+            
+            
         }
 
         public void CreateTables()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+        
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 try
                 {
@@ -58,19 +53,15 @@ namespace mmo_pd_db_client.Manual.DB
                     Console.WriteLine("Exception message: " + ex.Message);
                     Console.WriteLine("Exception source: " + ex.Source);
                 }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
+     
        
-            }
+            
         }
 
         public void DropSequences()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+         
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 try
                 {
@@ -84,20 +75,16 @@ namespace mmo_pd_db_client.Manual.DB
                     Console.WriteLine("Exception message: "+ ex.Message);
                     Console.WriteLine("Exception source: "+ex.Source);
                 }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
+              
                 
                
-            }
+            
         }
 
         public void CreateSequences()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+         
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 try
                 {
@@ -111,20 +98,16 @@ namespace mmo_pd_db_client.Manual.DB
                     Console.WriteLine("Exception message: " + ex.Message);
                     Console.WriteLine("Exception source: " + ex.Source);
                 }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
+       
          
-            }
+            
         }
 
 
         public void InsertExamplesData()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+       
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 foreach (string insertSql in SqlQuery.insertExampleData)
                 {
@@ -141,18 +124,13 @@ namespace mmo_pd_db_client.Manual.DB
                         Console.WriteLine("Exception source: " + ex.Source);
                     }
                 }
-     
-                    dbConnection.CloseConnection();
-                
-
-            }
+            
         }
 
         public void InsertNotValidData()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 try
                 {
@@ -166,20 +144,15 @@ namespace mmo_pd_db_client.Manual.DB
                     Console.WriteLine("Exception message: " + ex.Message);
                     Console.WriteLine("Exception source: " + ex.Source);
                 }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
-
-            }
+       
+            
         }
 
 
         public void TruncateAllTables()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+          
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 foreach (string truncateSql in SqlQuery.truncateTables)
                 {
@@ -197,16 +170,14 @@ namespace mmo_pd_db_client.Manual.DB
                     }
                     
                 }
-                    dbConnection.CloseConnection();
-            }
+            
         }
 
 
         public void CreateViews()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+       
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 foreach (string createViewSql in SqlQuery.createViews)
                 {
@@ -224,18 +195,16 @@ namespace mmo_pd_db_client.Manual.DB
                     }
 
                 }
-                dbConnection.CloseConnection();
-            }
+            
         }
 
 
 
 
-        public void DroppTriggers()
+        public void DropTriggers()
         {
             dbConnection.OpenConnection();
-            using (dbConnection.connection)
-            {
+       
                 OracleCommand cmd = dbConnection.connection.CreateCommand();
                 foreach (string query in SqlQuery.dropTriggers)
                 {
@@ -253,8 +222,47 @@ namespace mmo_pd_db_client.Manual.DB
                     }
 
                 }
-                dbConnection.CloseConnection();
-            }
+            
+        }
+
+        public void CreateTriggers()
+        {
+            dbConnection.OpenConnection();
+         
+                OracleCommand cmd = dbConnection.connection.CreateCommand();
+                foreach (string query in SqlQuery.createTriggers)
+                {
+                    try
+                    {
+                        cmd.CommandText = query;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine("Create trriger successful!");
+                    }
+                    catch (OracleException ex)
+                    {
+                        Console.WriteLine("Cannot create trigger!");
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception source: " + ex.Source);
+                    }
+
+                }
+            
+        }
+
+
+
+
+
+
+
+
+        public void CloseConnection()
+        {
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("Closing connection to database..");
+            dbConnection.CloseConnection();
+            Console.WriteLine("Connection to database closed successful");
+            Console.WriteLine("--------------------------------");
         }
     }
 }
