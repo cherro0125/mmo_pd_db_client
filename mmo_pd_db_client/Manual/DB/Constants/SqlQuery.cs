@@ -426,7 +426,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
                                                         FUNCTION generuj_wyglad(plec WYGLAD.SEX%TYPE) RETURN NUMBER;
                                                         FUNCTION dodaj_statystyki(klasa number, rasa number) RETURN NUMBER;
                                                         FUNCTION dodaj_postac(acc_id KONTA.ID%TYPE, nick POSTACIE.NICKNAME%TYPE, rasa varchar2, klasa varchar2, plec WYGLAD.SEX%TYPE ) RETURN NUMBER; 
-                                                    END mmo",
+                                                    END mmo;",
             @"CREATE OR REPLACE PACKAGE mmo_test AS
     PROCEDURE znajdz_rase(good_data boolean);
     PROCEDURE znajdz_klase(good_data boolean);
@@ -435,7 +435,7 @@ namespace mmo_pd_db_client.Manual.DB.Constants
     PROCEDURE generuj_wyglad(good_data boolean);
     PROCEDURE dodaj_statystyki(good_data boolean);
     PROCEDURE dodaj_postac;
-END mmo_test"
+END mmo_test;"
         });
 
         public static List<string> createPackagesBody = new List<string>(new string[]
@@ -737,7 +737,7 @@ END mmo_test"
     END dodaj_postac;
  
 
-END mmo",
+END mmo;",
             @"CREATE OR REPLACE PACKAGE BODY mmo_test AS
 PROCEDURE znajdz_rase(good_data boolean)
 IS
@@ -847,7 +847,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Found '|| test_val); 
     END dodaj_postac;
 
-END mmo_test"
+END mmo_test;"
         });
     }
 }

@@ -13,6 +13,8 @@ namespace mmo_pd_db_client.Manual.DB
             dbConnection = new DbConnection();
         }
 
+    
+
         public  void DropTables()
         {
             dbConnection.OpenConnection();
