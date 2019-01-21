@@ -40,5 +40,31 @@ namespace mmo_pd_db_client.Manual.DB
                 return -1;
             }
         }
+
+
+        public int FindClass(string className)
+        {
+            dbConnection.OpenConnection();
+            OracleCommand cmd = dbConnection.connection.CreateCommand();
+            try
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = ProcedureName.BuildProcedureName(PackageType.NORMAL, ProcedureName.find_class);
+                cmd.BindByName = true;
+                cmd.Parameters.Add("Return_Value", OracleDbType.Int16, ParameterDirection.ReturnValue);
+                cmd.Parameters.Add("klasa", className);               
+                cmd.ExecuteNonQuery();
+                return Convert.ToInt16(cmd.Parameters["Return_value"].Value.ToString());
+
+
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine("Cannot run procedure!");
+                Console.WriteLine("Exception message: " + ex.Message);
+                Console.WriteLine("Exception source: " + ex.Source);
+                return -1;
+            }
+        }
     }
 }

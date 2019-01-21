@@ -35,6 +35,8 @@ namespace mmo_pd_db_client
             int test = op.dbProcedure.FindRace("human", 'm');
             Console.WriteLine("Test: " + test);
             op.CloseConnection();
+            int test2 = op.dbProcedure.FindClass("traitor");
+            Console.WriteLine("Test2 klasa:" + test2);
             Console.ReadKey();
 
 
