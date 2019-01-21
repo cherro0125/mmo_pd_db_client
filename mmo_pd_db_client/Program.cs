@@ -21,12 +21,16 @@ namespace mmo_pd_db_client
             //    }
                
             DbOperation op = new DbOperation();
-            //op.CreateSequences();
-            //op.CreateTables();
-            //Console.WriteLine("----------------");
-            //op.CreateTriggers();
-            //op.DropPackages();
+            op.DropSequences();
+            op.CreateSequences();
+            op.DropTables();
+            op.CreateTables();
+            Console.WriteLine("----------------");
+            op.CreateTriggers();
+            op.DropPackages();
             op.CreatePackages();
+            int test = op.dbProcedure.FindRace("human", 'm');
+            Console.WriteLine("Test: "+ test);
             op.CloseConnection();
             Console.ReadKey();
 

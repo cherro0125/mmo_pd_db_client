@@ -70,9 +70,12 @@
     <Compile Include="KONTA.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Manual\DB\Constants\PackageType.cs" />
+    <Compile Include="Manual\DB\Constants\ProcedureName.cs" />
     <Compile Include="Manual\DB\Constants\SqlQuery.cs" />
     <Compile Include="Manual\DB\DbConnection.cs" />
     <Compile Include="Manual\DB\DbOperation.cs" />
+    <Compile Include="Manual\DB\DbProcedure.cs" />
     <Compile Include="MAPY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
