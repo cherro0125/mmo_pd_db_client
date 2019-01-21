@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -33,13 +34,15 @@ namespace mmo_pd_db_client
             op.DropPackages();
             op.CreatePackages();
             int test = op.dbProcedure.FindRace("human", 'm');
-            Console.WriteLine("Test: " + test);
-            op.CloseConnection();
+            Console.WriteLine("Test: " + test);    
             int test2 = op.dbProcedure.FindClass("traitor");
             Console.WriteLine("Test2 klasa:" + test2);
             bool test3 = op.dbProcedure.CheckIsAccountExists(55);
             Console.WriteLine("Test3:" + test3);
+            int test4 = op.dbProcedure.GeneratePosition();
+            Console.WriteLine("Test4: "+ test4);
             Console.ReadKey();
+            op.CloseConnection();
 
 
         }
