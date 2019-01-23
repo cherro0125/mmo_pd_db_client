@@ -2,6 +2,6 @@
 {
     public interface IPlayerOnMapRepository
     {
-        GRACZE_NA_MAPACH GetById(int id);
+      
     }
 }
