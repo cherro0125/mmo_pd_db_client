@@ -13,10 +13,10 @@ namespace mmo_pd_db_client
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities1 : DbContext
+    public partial class MmoContext : DbContext
     {
-        public Entities1()
-            : base("name=Entities1")
+        public MmoContext()
+            : base("name=MmoContext")
         {
         }
     

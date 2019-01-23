@@ -14,7 +14,7 @@ namespace mmo_pd_db_client
     {
         static void Main(string[] args)
         {
-            //using (var context = new Entities1())
+            //using (var context = new MmoContext())
             //{
             //    List<KONTA> kp = context.KONTAs.ToList();
 

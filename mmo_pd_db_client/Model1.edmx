@@ -730,7 +730,7 @@ FROM "MMO_PD"."POSTACIE_WYSOKOSC_MAPA" "POSTACIE_WYSOKOSC_MAPA"</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MmoContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BAZOWE_STATYSTYKI" EntityType="Self.BAZOWE_STATYSTYKI" />
           <EntitySet Name="KLASY_POSTACI" EntityType="Self.KLASY_POSTACI" />
           <EntitySet Name="KONTAs" EntityType="Self.KONTA" />
@@ -800,7 +800,7 @@ FROM "MMO_PD"."POSTACIE_WYSOKOSC_MAPA" "POSTACIE_WYSOKOSC_MAPA"</DefiningQuery>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities1">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MmoContext">
           <EntitySetMapping Name="BAZOWE_STATYSTYKI">
             <EntityTypeMapping TypeName="Model.BAZOWE_STATYSTYKI">
               <MappingFragment StoreEntitySet="BAZOWE_STATYSTYKI">

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace mmo_pd_db_client.Repository.Account
 {
-    public class AccountRepository : BaseRepository<Entities1,KONTA>, IAccountRepository
+    public class AccountRepository : BaseRepository<MmoContext,KONTA>, IAccountRepository
     {
         public KONTA GetById(int id)
         {
