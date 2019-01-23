@@ -515,6 +515,288 @@ namespace mmo_pd_db_client.Menu
 
         #endregion
 
+        #region Character
+        public void PrintAllCharacters()
+        {
+            List<POSTACIE> recs = _unitOfWork.CharacterRepository.GetAll().ToList();
+            if (recs.Any())
+            {
+                foreach (POSTACIE rec in recs)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} ACC ID: {rec.ACC_ID} CLASS ID: {rec.CLASS_ID} LOOK ID: {rec.LOOK_ID} NICKNAME: {rec.NICKNAME} POS ID: {rec.POS_ID}  RACE ID: {rec.RACE_ID} STAT ID: {rec.STAT_ID}  ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Character not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+
+        public void PrintOneCharacter()
+        {
+            int id = Utils.GetIntFromConsole("Character ID:");
+            POSTACIE rec = _unitOfWork.CharacterRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} ACC ID: {rec.ACC_ID} CLASS ID: {rec.CLASS_ID} LOOK ID: {rec.LOOK_ID} NICKNAME: {rec.NICKNAME} POS ID: {rec.POS_ID}  RACE ID: {rec.RACE_ID} STAT ID: {rec.STAT_ID}  ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Character not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeleteCharacter()
+        {
+            int id = Utils.GetIntFromConsole("Character ID to delete:");
+            POSTACIE rec = _unitOfWork.CharacterRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.CharacterRepository.Delete(rec);
+                _unitOfWork.CharacterRepository.Save();
+                Console.WriteLine("Character deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("Character not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreateCharacter()
+        {
+            POSTACIE rec = new POSTACIE();
+            int accId  = Utils.GetIntFromConsole("ACC ID");
+            int classId= Utils.GetIntFromConsole("CLASS ID");
+            int lookId = Utils.GetIntFromConsole("LOOK ID");
+            rec.NICKNAME = Utils.GetStringFromConsole("Nickname");
+            int posId = Utils.GetIntFromConsole("POS ID");
+            int raceId = Utils.GetIntFromConsole("RACE ID");
+            int stateId = Utils.GetIntFromConsole("STAT ID");
+
+            if (_unitOfWork.AccountRepository.GetById(accId) != null)
+            {
+                rec.ACC_ID = accId;
+            }
+            else
+            {
+                Console.WriteLine("Account with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            if (_unitOfWork.CharacterClassRepository.GetById(classId) != null)
+            {
+                rec.CLASS_ID = classId;
+            }
+            else
+            {
+                Console.WriteLine("Class with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            if (_unitOfWork.LookRepository.GetById(lookId) != null)
+            {
+                rec.LOOK_ID = lookId;
+            }
+            else
+            {
+                Console.WriteLine("Look with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            if (_unitOfWork.PositionRepository.GetById(posId) != null)
+            {
+                rec.POS_ID = posId;
+            }
+            else
+            {
+                Console.WriteLine("Position with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            if (_unitOfWork.RaceRepository.GetById(raceId) != null)
+            {
+                rec.RACE_ID = raceId;
+            }
+            else
+            {
+                Console.WriteLine("Race with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            if (_unitOfWork.StatRepository.GetById(stateId) != null)
+            {
+                rec.STAT_ID = stateId;
+            }
+            else
+            {
+                Console.WriteLine("Stat with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            _unitOfWork.CharacterRepository.Add(rec);
+            _unitOfWork.CharacterRepository.Save();
+            Console.WriteLine("Character created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyCharacter()
+        {
+            int id = Utils.GetIntFromConsole("Character ID to modify:");
+            POSTACIE rec = _unitOfWork.CharacterRepository.GetById(id);
+            if (rec != null)
+            {
+                int accId = Utils.GetIntFromConsole("ACC ID");
+                int classId = Utils.GetIntFromConsole("CLASS ID");
+                int lookId = Utils.GetIntFromConsole("LOOK ID");
+                rec.NICKNAME = Utils.GetStringFromConsole("Nickname");
+                int posId = Utils.GetIntFromConsole("POS ID");
+                int raceId = Utils.GetIntFromConsole("RACE ID");
+                int stateId = Utils.GetIntFromConsole("STAT ID");
+
+                if (_unitOfWork.AccountRepository.GetById(accId) != null)
+                {
+                    rec.ACC_ID = accId;
+                }
+                else
+                {
+                    Console.WriteLine("Account with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                if (_unitOfWork.CharacterClassRepository.GetById(classId) != null)
+                {
+                    rec.CLASS_ID = classId;
+                }
+                else
+                {
+                    Console.WriteLine("Class with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                if (_unitOfWork.LookRepository.GetById(lookId) != null)
+                {
+                    rec.LOOK_ID = lookId;
+                }
+                else
+                {
+                    Console.WriteLine("Look with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                if (_unitOfWork.PositionRepository.GetById(posId) != null)
+                {
+                    rec.POS_ID = posId;
+                }
+                else
+                {
+                    Console.WriteLine("Position with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                if (_unitOfWork.RaceRepository.GetById(raceId) != null)
+                {
+                    rec.RACE_ID = raceId;
+                }
+                else
+                {
+                    Console.WriteLine("Race with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                if (_unitOfWork.StatRepository.GetById(stateId) != null)
+                {
+                    rec.STAT_ID = stateId;
+                }
+                else
+                {
+                    Console.WriteLine("Stat with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+
+                _unitOfWork.CharacterRepository.Edit(rec);
+                _unitOfWork.CharacterRepository.Save();
+                Console.WriteLine("Character modified");
+            }
+            else
+            {
+                Console.WriteLine("Character not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void CharacterMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleCharacterMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleCharacterMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllCharacters();
+                    break;
+                case 2:
+                    PrintOneCharacter();
+                    break;
+                case 3:
+                    DeleteCharacter();
+                    break;
+                case 4:
+                    CreateCharacter();
+                    break;
+                case 5:
+                    ModifyCharacter();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+
+        #endregion
+
         #endregion
     }
 }
