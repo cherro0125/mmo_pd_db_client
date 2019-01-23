@@ -58,7 +58,17 @@ namespace mmo_pd_db_client.Menu
 
         public void CreateViews()
         {
-            _dbOperation.CreateViews();
+            _dbOperation.CreateViews();       
+        }
+
+        public void InsertExampleData()
+        {
+            _dbOperation.InsertExamplesData();
+        }
+
+        public void InsertNonValidData()
+        {
+            _dbOperation.InsertNotValidData();
         }
 
 

@@ -80,6 +80,7 @@
     <Compile Include="MAPY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuHandlers.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>

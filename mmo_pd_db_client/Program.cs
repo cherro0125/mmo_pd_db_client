@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using mmo_pd_db_client.Manual.DB;
 using mmo_pd_db_client.Repository.Account;
 using mmo_pd_db_client.UnitOfWork;
+using mmo_pd_db_client.Menu;
 
 namespace mmo_pd_db_client
 {
@@ -25,15 +26,15 @@ namespace mmo_pd_db_client
             //    }
             //    Console.ReadKey();
             //}
-           IUnitOfWork unitOfWork = new UnitOfWork.UnitOfWork();
+           //IUnitOfWork unitOfWork = new UnitOfWork.UnitOfWork();
 
-            //KONTA testKonta = repo.GetById(1);
+           // //KONTA testKonta = repo.GetById(1);
 
-            List<KONTA> kontas = unitOfWork.AccountRepository.GetAll().ToList();
-            foreach (var kontoSingle in kontas)
-            {
-                Console.WriteLine(kontoSingle.ID + kontoSingle.EMAIL);
-            }
+           // List<KONTA> kontas = unitOfWork.AccountRepository.GetAll().ToList();
+           // foreach (var kontoSingle in kontas)
+           // {
+           //     Console.WriteLine(kontoSingle.ID + kontoSingle.EMAIL);
+           // }
 
             //KONTA testNowe = new KONTA();
             //testNowe.EMAIL = "dupek123@dupa.pl";
@@ -69,6 +70,8 @@ namespace mmo_pd_db_client
             //Console.WriteLine("Test6: " + test6);
             //int test7 = op.dbProcedure.AddCharacter(1, "testCSharp", "human", "warrior", 'm');
             //Console.WriteLine("Test7: " + test7);
+            Menu.Menu menu = new Menu.Menu();
+            menu.RunMenu();
             Console.ReadKey();
             //op.CloseConnection();
 
