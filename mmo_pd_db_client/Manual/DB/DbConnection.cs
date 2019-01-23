@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Configuration;
+using System.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace mmo_pd_db_client.Manual.DB
@@ -10,7 +11,8 @@ namespace mmo_pd_db_client.Manual.DB
 
         public DbConnection()
         {
-            connectionString = "Data Source=127.0.0.1/xe;User Id=mmo_pd;Password=mmo_pd;";
+            //connectionString = "Data Source=127.0.0.1/xe;User Id=mmo_pd;Password=mmo_pd;";
+            connectionString = ConfigurationManager.ConnectionStrings["ManualConnect"].ConnectionString;
             connection = new OracleConnection(connectionString);
         }
 
