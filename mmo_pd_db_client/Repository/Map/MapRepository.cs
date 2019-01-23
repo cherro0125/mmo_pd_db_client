@@ -2,7 +2,7 @@
 
 namespace mmo_pd_db_client.Repository.Map
 {
-    public class MapRepository : BaseRepository<Entities1,MAPY>, IMapRepository
+    public class MapRepository : BaseRepository<MmoContext,MAPY>, IMapRepository
     {
         public MAPY GetById(int id)
         {

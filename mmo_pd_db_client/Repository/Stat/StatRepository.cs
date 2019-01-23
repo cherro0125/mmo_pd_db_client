@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 namespace mmo_pd_db_client.Repository.Stat
 {
-    public class StatRepository : BaseRepository<Entities1,STATYSTYKI>, IStatRepository
+    public class StatRepository : BaseRepository<MmoContext,STATYSTYKI>, IStatRepository
     {
         public STATYSTYKI GetById(int id)
         {

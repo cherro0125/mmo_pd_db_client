@@ -12,6 +12,7 @@ namespace mmo_pd_db_client.Repository
         IBaseRepository<T> where T : class where C : DbContext, new()
     {
 
+      
         private C _entities = new C();
         public C Context
         {
@@ -19,6 +20,7 @@ namespace mmo_pd_db_client.Repository
             get { return _entities; }
             set { _entities = value; }
         }
+
 
         public virtual IQueryable<T> GetAll()
         {

@@ -2,7 +2,7 @@
 
 namespace mmo_pd_db_client.Repository.Character
 {
-    public class CharacterRepository : BaseRepository<Entities1,POSTACIE>, ICharacterRepository
+    public class CharacterRepository : BaseRepository<MmoContext,POSTACIE>, ICharacterRepository
     {
         public POSTACIE GetById(int id)
         {

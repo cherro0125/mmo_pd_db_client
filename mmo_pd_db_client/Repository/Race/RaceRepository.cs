@@ -2,7 +2,7 @@
 
 namespace mmo_pd_db_client.Repository.Race
 {
-    public class RaceRepository : BaseRepository<Entities1,RASY>, IRaceRepository
+    public class RaceRepository : BaseRepository<MmoContext,RASY>, IRaceRepository
     {
         public RASY GetById(int id)
         {

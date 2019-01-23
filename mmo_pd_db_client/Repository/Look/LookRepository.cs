@@ -2,7 +2,7 @@
 
 namespace mmo_pd_db_client.Repository.Look
 {
-    public class LookRepository : BaseRepository<Entities1,WYGLAD>, ILookRepository
+    public class LookRepository : BaseRepository<MmoContext,WYGLAD>, ILookRepository
     {
         public WYGLAD GetById(int id)
         {
