@@ -7,11 +7,11 @@ namespace mmo_pd_db_client.Repository.SkillType
     public interface ISkillTypeRepository
     {
         TYPY_UMIEJETNOSCI GetById(int id);
-        IQueryable<UMIEJETNOSCI_POSTAC> GetAll();
-        IQueryable<UMIEJETNOSCI_POSTAC> FindBy(Expression<Func<UMIEJETNOSCI_POSTAC, bool>> predicate);
-        void Add(UMIEJETNOSCI_POSTAC entity);
-        void Delete(UMIEJETNOSCI_POSTAC entity);
-        void Edit(UMIEJETNOSCI_POSTAC entity);
+        IQueryable<TYPY_UMIEJETNOSCI> GetAll();
+        IQueryable<TYPY_UMIEJETNOSCI> FindBy(Expression<Func<TYPY_UMIEJETNOSCI, bool>> predicate);
+        void Add(TYPY_UMIEJETNOSCI entity);
+        void Delete(TYPY_UMIEJETNOSCI entity);
+        void Edit(TYPY_UMIEJETNOSCI entity);
         void Save();
     }
 }

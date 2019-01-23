@@ -32,7 +32,7 @@ namespace mmo_pd_db_client.UnitOfWork
         public ISkillCharacterRepository SkillCharacterRepository { get; }
         public ISkillTypeRepository SkillTypeRepository { get; }
         public IStatRepository StatRepository { get; }
-        public ICharacterHeighMapRepository CharacterHeightMapRepository { get; }
+        public ICharacterHeightMapRepository CharacterHeightMapRepository { get; }
         public ICharacterLevelAvgRepo CharacterLevelAvg { get; }
         public IPlayerOnMapRepository PlayerOnMapRepository { get; }
 

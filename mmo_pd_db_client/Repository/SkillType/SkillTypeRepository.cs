@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+
 namespace mmo_pd_db_client.Repository.SkillType
 {
     public class SkillTypeRepository : BaseRepository<MmoContext,TYPY_UMIEJETNOSCI>, ISkillTypeRepository
@@ -8,5 +11,6 @@ namespace mmo_pd_db_client.Repository.SkillType
             var query = GetAll().FirstOrDefault(x => x.ID == id);
             return query;
         }
+
     }
 }
