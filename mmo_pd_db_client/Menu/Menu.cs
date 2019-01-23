@@ -95,6 +95,7 @@ namespace mmo_pd_db_client.Menu
             string userChoice = String.Empty;
             do
             {
+                Console.Clear();
                 PrintMenuText();
                 Console.Write("Choice:");
                 userChoice = Console.ReadLine();
