@@ -232,7 +232,8 @@ namespace mmo_pd_db_client.Menu
             List<KONTA> accounts = _unitOfWork.AccountRepository.GetAll().ToList();
             foreach (KONTA rec in accounts)
             {
-                Console.WriteLine(String.Format("ID:{0} EMAIL: {1} LOGIN: {2} PASSWORD HASH: {3} CREATED AT: {4} ",rec.ID,rec.EMAIL,rec.PASSWORD_HASH,rec.CREATED_AT));
+                Console.WriteLine(
+                    $"ID:{rec.ID} EMAIL: {rec.EMAIL} LOGIN: {rec.LOGIN} PASSWORD HASH: {rec.PASSWORD_HASH} CREATED AT: {rec.CREATED_AT} ");
             }
             Console.WriteLine("Click any button to continue");
             Console.ReadKey();
@@ -244,11 +245,15 @@ namespace mmo_pd_db_client.Menu
             KONTA rec = _unitOfWork.AccountRepository.GetById(id);
             if (rec != null)
             {
-                Console.WriteLine(String.Format("ID:{0} EMAIL: {1} LOGIN: {2} PASSWORD HASH: {3} CREATED AT: {4} ", rec.ID, rec.EMAIL, rec.PASSWORD_HASH, rec.CREATED_AT));
+                Console.WriteLine(
+                    $"ID:{rec.ID} EMAIL: {rec.EMAIL} LOGIN: {rec.LOGIN} PASSWORD HASH: {rec.PASSWORD_HASH} CREATED AT: {rec.CREATED_AT} ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("Account not found");
+                Thread.Sleep(1000);
             }
 
         }
@@ -260,11 +265,14 @@ namespace mmo_pd_db_client.Menu
             if (rec != null)
             {
                 _unitOfWork.AccountRepository.Delete(rec);
-                _unitOfWork.AccountRepository.Save();                
+                _unitOfWork.AccountRepository.Save();
+                Console.WriteLine("Account deleted");
+                Thread.Sleep(1000);
             }
             else
             {
                 Console.WriteLine("Accont not found");
+                Thread.Sleep(1000);
             }
         }
 
@@ -278,7 +286,8 @@ namespace mmo_pd_db_client.Menu
             account.CREATED_AT = DateTime.Now;
             _unitOfWork.AccountRepository.Add(account);
             _unitOfWork.AccountRepository.Save();
-            Console.WriteLine("Account created");            
+            Console.WriteLine("Account created");
+            Thread.Sleep(1000);
         }
 
         public void ModifyAccount()
@@ -292,7 +301,7 @@ namespace mmo_pd_db_client.Menu
                 string password = Utils.GetStringFromConsole("PASSWORD:");
                 account.PASSWORD_HASH = Utils.CreateMD5(password);
                 account.CREATED_AT = DateTime.Now;
-                _unitOfWork.AccountRepository.Add(account);
+                _unitOfWork.AccountRepository.Edit(account);
                 _unitOfWork.AccountRepository.Save();
                 Console.WriteLine("Account modified");
             }
@@ -300,7 +309,57 @@ namespace mmo_pd_db_client.Menu
             {
                 Console.WriteLine("Accont not found");
             }
-         
+            Thread.Sleep(2000);
+
+        }
+
+        public void AccountMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleAccountMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleAccountMenu(int choice)
+        {
+            //Console.WriteLine("1. Print all");
+            //Console.WriteLine("2. Print one");
+            //Console.WriteLine("3. Delete");
+            //Console.WriteLine("4. Add new");
+            //Console.WriteLine("5. Modify");
+            switch (choice)
+            {
+                case 1:
+                    PrintAllAccounts();
+                    break;
+                case 2:
+                    PrintOneAccount();
+                    break;
+                case 3:
+                    DeleteAccount();
+                    break;
+                case 4:
+                    CreateAccount();
+                    break;
+                case 5:
+                    ModifyAccount();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
         }
 
 

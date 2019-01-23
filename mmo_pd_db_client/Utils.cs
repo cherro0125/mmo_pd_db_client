@@ -49,6 +49,20 @@ namespace mmo_pd_db_client
                 return sb.ToString();
             }
         }
+
+        public static void PrintOrmOperationMenu()
+        {
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("To use this procedure you must create tables,sequences, triggers and packages");
+            Console.WriteLine("1. Print all");
+            Console.WriteLine("2. Print one");
+            Console.WriteLine("3. Delete");
+            Console.WriteLine("4. Add new");
+            Console.WriteLine("5. Modify");
+
+            Console.WriteLine("0. Return to ORM menu");
+            Console.WriteLine("---------------------------");
+        }
     }
 
 

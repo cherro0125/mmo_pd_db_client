@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace mmo_pd_db_client.Menu
 {
@@ -70,7 +71,7 @@ namespace mmo_pd_db_client.Menu
                    RunProcedureMenu();
                     break;
                 case 11:
-                    //TODO : ORM handler menu
+                    RunOrmMenu();
                     break;
                 case 12:
                     _menuHandlers.InsertExampleData();
@@ -134,6 +135,51 @@ namespace mmo_pd_db_client.Menu
 
             }
         }
+
+        private void PrintOrmMenu()
+        {
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("1.Account");
+
+            Console.WriteLine("0. Return to main menu");
+            Console.WriteLine("---------------------------");
+        }
+
+        private void HandleOrmMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    _menuHandlers.AccountMenu();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+
+
+            }
+        }
+
+        private void RunOrmMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                PrintOrmMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleOrmMenu(choice);
+
+            } while (true);
+        }
+
+
 
         public void RunMenu()
         {
