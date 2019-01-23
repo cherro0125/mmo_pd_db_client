@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Policy;
 using System.Threading;
 using mmo_pd_db_client.Manual.DB;
 using mmo_pd_db_client.UnitOfWork;
@@ -125,17 +128,6 @@ namespace mmo_pd_db_client.Menu
         public void CheckIsAccountExists()
         {
             int id = Utils.GetIntFromConsole("Acc ID:");
-      
-            //do
-            //{
-            //    Console.WriteLine("ID:");
-            //    id_string = Console.ReadLine();
-            //    tryParse = int.TryParse(id_string, out id);
-            //    if (!tryParse)
-            //    {
-            //        Console.WriteLine("Type number");
-            //    }
-            //} while (!tryParse);
 
             bool result = _dbOperation.dbProcedure.CheckIsAccountExists(id);
             if (result)
@@ -233,7 +225,86 @@ namespace mmo_pd_db_client.Menu
 
         #region ORM
 
+        #region Account
 
+        public void PrintAllAccounts()
+        {
+            List<KONTA> accounts = _unitOfWork.AccountRepository.GetAll().ToList();
+            foreach (KONTA rec in accounts)
+            {
+                Console.WriteLine(String.Format("ID:{0} EMAIL: {1} LOGIN: {2} PASSWORD HASH: {3} CREATED AT: {4} ",rec.ID,rec.EMAIL,rec.PASSWORD_HASH,rec.CREATED_AT));
+            }
+            Console.WriteLine("Click any button to continue");
+            Console.ReadKey();
+        }
+
+        public void PrintOneAccount()
+        {
+            int id = Utils.GetIntFromConsole("Acc ID:");
+            KONTA rec = _unitOfWork.AccountRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(String.Format("ID:{0} EMAIL: {1} LOGIN: {2} PASSWORD HASH: {3} CREATED AT: {4} ", rec.ID, rec.EMAIL, rec.PASSWORD_HASH, rec.CREATED_AT));
+            }
+            else
+            {
+                Console.WriteLine("Account not found");
+            }
+
+        }
+
+        public void DeleteAccount()
+        {
+            int id = Utils.GetIntFromConsole("Acc ID to delete:");
+            KONTA rec = _unitOfWork.AccountRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.AccountRepository.Delete(rec);
+                _unitOfWork.AccountRepository.Save();                
+            }
+            else
+            {
+                Console.WriteLine("Accont not found");
+            }
+        }
+
+        public void CreateAccount()
+        {
+            KONTA account = new KONTA();
+            account.EMAIL = Utils.GetStringFromConsole("EMAIL:");
+            account.LOGIN = Utils.GetStringFromConsole("LOGIN:");
+            string password = Utils.GetStringFromConsole("PASSWORD:");
+            account.PASSWORD_HASH = Utils.CreateMD5(password);
+            account.CREATED_AT = DateTime.Now;
+            _unitOfWork.AccountRepository.Add(account);
+            _unitOfWork.AccountRepository.Save();
+            Console.WriteLine("Account created");            
+        }
+
+        public void ModifyAccount()
+        {
+            int id = Utils.GetIntFromConsole("Acc ID to modify:");
+            KONTA account = _unitOfWork.AccountRepository.GetById(id);
+            if (account != null)
+            {
+                account.EMAIL = Utils.GetStringFromConsole("EMAIL:");
+                account.LOGIN = Utils.GetStringFromConsole("LOGIN:");
+                string password = Utils.GetStringFromConsole("PASSWORD:");
+                account.PASSWORD_HASH = Utils.CreateMD5(password);
+                account.CREATED_AT = DateTime.Now;
+                _unitOfWork.AccountRepository.Add(account);
+                _unitOfWork.AccountRepository.Save();
+                Console.WriteLine("Account modified");
+            }
+            else
+            {
+                Console.WriteLine("Accont not found");
+            }
+         
+        }
+
+
+        #endregion
 
         #endregion
     }
