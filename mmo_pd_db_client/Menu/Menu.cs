@@ -32,13 +32,11 @@ namespace mmo_pd_db_client.Menu
 
         }
 
+ 
+
         private void HandleMenu(int choice)
         {
-            if (choice > 11)
-            {
-                Console.WriteLine("Option with this number not exists.");
-            }
-
+     
             switch (choice)
             {
                 case 1:
@@ -69,7 +67,7 @@ namespace mmo_pd_db_client.Menu
                     _menuHandlers.CreateViews();
                     break;
                 case 10: 
-                    //TODO : Procedure handler menu
+                   RunProcedureMenu();
                     break;
                 case 11:
                     //TODO : ORM handler menu
@@ -89,6 +87,54 @@ namespace mmo_pd_db_client.Menu
             }
         }
 
+        private void PrintProcedureMenuText()
+        {
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("To use this procedure you must create tables,sequences, triggers and packages");
+            Console.WriteLine("1. Find race");
+            Console.WriteLine("2. Find class");
+            Console.WriteLine("3. Check is account exists");
+            Console.WriteLine("4. Generate position");
+            Console.WriteLine("5. Generate look");
+            Console.WriteLine("6. Add statistics");
+            Console.WriteLine("7. Add character");
+            Console.WriteLine("0. Return to main menu");
+            Console.WriteLine("---------------------------");
+
+        }
+
+        private void HandleProcedureMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    _menuHandlers.FindRace();
+                    break;
+                case 2:
+                    _menuHandlers.FindClass();
+                    break;
+                case 3:
+                    _menuHandlers.CheckIsAccountExists();
+                    break;
+                case 4:
+                    _menuHandlers.GeneratePosition();
+                    break;
+                case 5:
+                   //TODO : Generate look
+                    break;
+                case 6:
+                    //TODO : Add statistics 
+                    break;
+                case 7:
+                    //TODO : Add character
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
         public void RunMenu()
         {
             int choice;
@@ -105,6 +151,24 @@ namespace mmo_pd_db_client.Menu
 
             } while (true);
 
+        }
+
+        private void RunProcedureMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                PrintProcedureMenuText();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleProcedureMenu(choice);
+
+            } while (true);
         }
     }
 }
