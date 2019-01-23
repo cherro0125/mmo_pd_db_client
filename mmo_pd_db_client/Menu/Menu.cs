@@ -142,6 +142,7 @@ namespace mmo_pd_db_client.Menu
             Console.WriteLine("1. Account");
             Console.WriteLine("2. Base statistics");
             Console.WriteLine("3. Character");
+            Console.WriteLine("4. Character class");
 
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("---------------------------");
@@ -159,6 +160,9 @@ namespace mmo_pd_db_client.Menu
                     break;
                 case 3:
                     _menuHandlers.CharacterMenu();
+                    break;
+                case 4:
+                    _menuHandlers.CharacterClassMenu();
                     break;
                 default:
                     Console.WriteLine("Option with this number not exists.");

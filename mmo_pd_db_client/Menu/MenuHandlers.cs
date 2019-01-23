@@ -794,6 +794,165 @@ namespace mmo_pd_db_client.Menu
             }
         }
 
+        #region CharacterClass
+
+        public void PrintAllCharacterClass()
+        {
+            List<KLASY_POSTACI> stats = _unitOfWork.CharacterClassRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (KLASY_POSTACI rec in stats)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} CLASS NAME: {rec.CLASS_NAME} BASE STAT ID: {rec.B_STAT_ID}  ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Character class not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+
+        public void PrintOneCharacterClass()
+        {
+            int id = Utils.GetIntFromConsole("Character class ID:");
+            KLASY_POSTACI rec = _unitOfWork.CharacterClassRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} CLASS NAME: {rec.CLASS_NAME} BASE STAT ID: {rec.B_STAT_ID}  ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Character class not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeleteCharacterClass()
+        {
+            int id = Utils.GetIntFromConsole("Character class ID to delete:");
+            KLASY_POSTACI rec = _unitOfWork.CharacterClassRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.CharacterClassRepository.Delete(rec);
+                _unitOfWork.CharacterClassRepository.Save();
+                Console.WriteLine("Character class deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("Character class not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreateCharacterClass()
+        {
+            KLASY_POSTACI rec = new KLASY_POSTACI();
+            rec.CLASS_NAME = Utils.GetStringFromConsole("Class name:");
+            int bStatId = Utils.GetIntFromConsole("BASE STAT ID:");
+            if (_unitOfWork.BaseStatisticsRepository.GetById(bStatId) != null)
+            {
+                rec.B_STAT_ID = bStatId;
+            }
+            else
+            {
+                Console.WriteLine("Base stat with this ID not exists");
+                Thread.Sleep(2000);
+                return;
+            }
+            _unitOfWork.CharacterClassRepository.Add(rec);
+            _unitOfWork.CharacterClassRepository.Save();
+            Console.WriteLine("Character class created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyCharacterClass()
+        {
+            int id = Utils.GetIntFromConsole("Character class ID to modify:");
+            KLASY_POSTACI rec = _unitOfWork.CharacterClassRepository.GetById(id);
+            if (rec != null)
+            {
+                rec.CLASS_NAME = Utils.GetStringFromConsole("Class name:");
+                int bStatId = Utils.GetIntFromConsole("BASE STAT ID:");
+                if (_unitOfWork.BaseStatisticsRepository.GetById(bStatId) != null)
+                {
+                    rec.B_STAT_ID = bStatId;
+                }
+                else
+                {
+                    Console.WriteLine("Base stat with this ID not exists");
+                    Thread.Sleep(2000);
+                    return;
+                }
+                _unitOfWork.CharacterClassRepository.Edit(rec);
+                _unitOfWork.CharacterClassRepository.Save();
+                Console.WriteLine("Character class modified");
+            }
+            else
+            {
+                Console.WriteLine("Character class not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void CharacterClassMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleCharacterClassMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleCharacterClassMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllCharacterClass();
+                    break;
+                case 2:
+                    PrintOneCharacterClass();
+                    break;
+                case 3:
+                    DeleteCharacterClass();
+                    break;
+                case 4:
+                    CreateCharacterClass();
+                    break;
+                case 5:
+                    ModifyCharacterClass();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+
+        #endregion
+
 
         #endregion
 
