@@ -124,18 +124,18 @@ namespace mmo_pd_db_client.Menu
 
         public void CheckIsAccountExists()
         {
-            int id;
-            string id_string = String.Empty;
-            bool tryParse;
-            do
-            {
-                id_string = Console.ReadLine();
-                tryParse = int.TryParse(id_string, out id);
-                if (!tryParse)
-                {
-                    Console.WriteLine("Type number");
-                }
-            } while (!tryParse);
+            int id = Utils.GetIntFromConsole("Acc ID:");
+      
+            //do
+            //{
+            //    Console.WriteLine("ID:");
+            //    id_string = Console.ReadLine();
+            //    tryParse = int.TryParse(id_string, out id);
+            //    if (!tryParse)
+            //    {
+            //        Console.WriteLine("Type number");
+            //    }
+            //} while (!tryParse);
 
             bool result = _dbOperation.dbProcedure.CheckIsAccountExists(id);
             if (result)
@@ -159,6 +159,68 @@ namespace mmo_pd_db_client.Menu
             else
             {
                 Console.WriteLine("Generated position ID: "+ result);
+            }
+            Thread.Sleep(2000);
+        }
+
+        public void GenerateLook()
+        {
+            Console.Write("Sex (m - male/k - female):");
+            string sex = Console.ReadLine();
+            int result = _dbOperation.dbProcedure.GenerateLook(sex[0]);
+            if (result == -1)
+            {
+                Console.WriteLine("Cannot generate look");
+            }
+            else
+            {
+                Console.WriteLine("Generated look ID: " + result);
+            }
+            Thread.Sleep(2000);
+        }
+
+        public void AddStatistics()
+        {
+            int classId = Utils.GetIntFromConsole("Class id:");
+            int raceId = Utils.GetIntFromConsole("Race id:");
+            int result = _dbOperation.dbProcedure.AddStatistics(classId, raceId);
+            if (result == -1)
+            {
+                Console.WriteLine("Cannot add new statistics");
+            }
+            else
+            {
+                Console.WriteLine("Generated statistics ID: " + result);
+            }
+            Thread.Sleep(2000);
+        }
+
+        public void AddCharacter()
+        {
+            int accId = Utils.GetIntFromConsole("Account ID:");
+            Console.Write("Nickname:");
+            string nickname = Console.ReadLine();
+            Console.WriteLine("");
+
+            Console.Write("Race:");
+            string race = Console.ReadLine();
+            Console.WriteLine("");
+
+            Console.Write("Class name:");
+            string className = Console.ReadLine();
+            Console.WriteLine("");
+
+            Console.Write("Sex (m - male/k - female):");
+            string sex = Console.ReadLine();
+            Console.WriteLine("");
+            int result = _dbOperation.dbProcedure.AddCharacter(accId, nickname, race, className, sex[0]);
+            if (result == -1)
+            {
+                Console.WriteLine("Cannot create new character");
+            }
+            else
+            {
+                Console.WriteLine("New character ID: "+ result);
             }
             Thread.Sleep(2000);
         }
