@@ -230,13 +230,22 @@ namespace mmo_pd_db_client.Menu
         public void PrintAllAccounts()
         {
             List<KONTA> accounts = _unitOfWork.AccountRepository.GetAll().ToList();
-            foreach (KONTA rec in accounts)
+            if (accounts.Any())
             {
-                Console.WriteLine(
-                    $"ID:{rec.ID} EMAIL: {rec.EMAIL} LOGIN: {rec.LOGIN} PASSWORD HASH: {rec.PASSWORD_HASH} CREATED AT: {rec.CREATED_AT} ");
+                foreach (KONTA rec in accounts)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} EMAIL: {rec.EMAIL} LOGIN: {rec.LOGIN} PASSWORD HASH: {rec.PASSWORD_HASH} CREATED AT: {rec.CREATED_AT} ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
             }
-            Console.WriteLine("Click any button to continue");
-            Console.ReadKey();
+            else
+            {
+                Console.WriteLine("Account not found");
+                Thread.Sleep(1000);
+            }
+     
         }
 
         public void PrintOneAccount()
@@ -333,11 +342,6 @@ namespace mmo_pd_db_client.Menu
 
         private void HandleAccountMenu(int choice)
         {
-            //Console.WriteLine("1. Print all");
-            //Console.WriteLine("2. Print one");
-            //Console.WriteLine("3. Delete");
-            //Console.WriteLine("4. Add new");
-            //Console.WriteLine("5. Modify");
             switch (choice)
             {
                 case 1:
@@ -362,6 +366,152 @@ namespace mmo_pd_db_client.Menu
             }
         }
 
+
+        #endregion
+
+        #region BaseStatistics
+
+        public void PrintAllBaseStat()
+        {
+            List<BAZOWE_STATYSTYKI> stats = _unitOfWork.BaseStatisticsRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (BAZOWE_STATYSTYKI rec in stats)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} BASE HP: {rec.BASE_HP} BASE AG: {rec.BASE_AG} BASE INT: {rec.BASE_INT} BASE MP: {rec.BASE_MP} BASE STAMINA:{rec.BASE_STAMINA} BASE STR{rec.BASE_STR} ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Base stat not found");
+                Thread.Sleep(2000);
+            }
+ 
+        }
+
+
+        public void PrintOneBaseStat()
+        {
+            int id = Utils.GetIntFromConsole("Base stat ID:");
+            BAZOWE_STATYSTYKI rec = _unitOfWork.BaseStatisticsRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} BASE HP: {rec.BASE_HP} BASE AG: {rec.BASE_AG} BASE INT: {rec.BASE_INT} BASE MP: {rec.BASE_MP} BASE STAMINA:{rec.BASE_STAMINA} BASE STR{rec.BASE_STR} ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Base stat not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeleteBaseStat()
+        {
+            int id = Utils.GetIntFromConsole("Base stat ID to delete:");
+            BAZOWE_STATYSTYKI rec = _unitOfWork.BaseStatisticsRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.BaseStatisticsRepository.Delete(rec);
+                _unitOfWork.BaseStatisticsRepository.Save();
+                Console.WriteLine("Base stat deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("Base stat not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreateBaseStat()
+        {
+            BAZOWE_STATYSTYKI bs = new BAZOWE_STATYSTYKI();
+            bs.BASE_AG = Utils.GetIntFromConsole("BASE AG");
+            bs.BASE_HP = Utils.GetIntFromConsole("BASE HP");
+            bs.BASE_INT = Utils.GetIntFromConsole("BASE INT");
+            bs.BASE_MP = Utils.GetIntFromConsole("BASE MP");
+            bs.BASE_STAMINA = Utils.GetIntFromConsole("BASE STAMINA");
+            bs.BASE_STR = Utils.GetIntFromConsole("BASE STR");
+            _unitOfWork.BaseStatisticsRepository.Add(bs);
+            _unitOfWork.BaseStatisticsRepository.Save();
+            Console.WriteLine("Base stat created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyBaseStat()
+        {
+            int id = Utils.GetIntFromConsole("Base stat ID to modify:");
+            BAZOWE_STATYSTYKI bs = _unitOfWork.BaseStatisticsRepository.GetById(id);
+            if (bs != null)
+            {
+                bs.BASE_AG = Utils.GetIntFromConsole("BASE AG");
+                bs.BASE_HP = Utils.GetIntFromConsole("BASE HP");
+                bs.BASE_INT = Utils.GetIntFromConsole("BASE INT");
+                bs.BASE_MP = Utils.GetIntFromConsole("BASE MP");
+                bs.BASE_STAMINA = Utils.GetIntFromConsole("BASE STAMINA");
+                bs.BASE_STR = Utils.GetIntFromConsole("BASE STR");
+                _unitOfWork.BaseStatisticsRepository.Edit(bs);
+                _unitOfWork.BaseStatisticsRepository.Save();
+                Console.WriteLine("Base stat modified");
+            }
+            else
+            {
+                Console.WriteLine("Base stat not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void BaseStatMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleBaseStatMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleBaseStatMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllBaseStat();
+                    break;
+                case 2:
+                    PrintOneBaseStat();
+                    break;
+                case 3:
+                    DeleteBaseStat();
+                    break;
+                case 4:
+                    CreateBaseStat();
+                    break;
+                case 5:
+                    ModifyBaseStat();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
 
         #endregion
 

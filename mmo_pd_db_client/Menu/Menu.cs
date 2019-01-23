@@ -139,7 +139,8 @@ namespace mmo_pd_db_client.Menu
         private void PrintOrmMenu()
         {
             Console.WriteLine("---------------------------");
-            Console.WriteLine("1.Account");
+            Console.WriteLine("1. Account");
+            Console.WriteLine("2. Base statistics");
 
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("---------------------------");
@@ -151,6 +152,9 @@ namespace mmo_pd_db_client.Menu
             {
                 case 1:
                     _menuHandlers.AccountMenu();
+                    break;
+                case 2:
+                    _menuHandlers.BaseStatMenu();
                     break;
                 default:
                     Console.WriteLine("Option with this number not exists.");
