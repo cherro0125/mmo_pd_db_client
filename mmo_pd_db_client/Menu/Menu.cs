@@ -120,13 +120,13 @@ namespace mmo_pd_db_client.Menu
                     _menuHandlers.GeneratePosition();
                     break;
                 case 5:
-                   //TODO : Generate look
+                   _menuHandlers.GenerateLook();
                     break;
                 case 6:
-                    //TODO : Add statistics 
+                    _menuHandlers.AddStatistics();
                     break;
                 case 7:
-                    //TODO : Add character
+                    _menuHandlers.AddCharacter();
                     break;
                 default:
                     Console.WriteLine("Option with this number not exists.");

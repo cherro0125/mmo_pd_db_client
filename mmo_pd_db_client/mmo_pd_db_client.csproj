@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="WYGLAD.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
