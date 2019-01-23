@@ -80,6 +80,7 @@
     <Compile Include="MAPY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Menu\MenuHandlers.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,7 +116,35 @@
     <Compile Include="Repository\Account\AccountRepository.cs" />
     <Compile Include="Repository\Account\IAccountRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\BaseStatistics\BaseStatisticsRepository.cs" />
+    <Compile Include="Repository\BaseStatistics\IBaseStatisticsRepository.cs" />
+    <Compile Include="Repository\CharacterClass\CharacterClassRepository.cs" />
+    <Compile Include="Repository\CharacterClass\ICharacterClassRepository.cs" />
+    <Compile Include="Repository\Character\CharacterRepository.cs" />
+    <Compile Include="Repository\Character\ICharacterRepository.cs" />
     <Compile Include="Repository\IBaseRepository.cs" />
+    <Compile Include="Repository\SkillCharacterRepository\ISkillCharacterRepository.cs" />
+    <Compile Include="Repository\SkillCharacterRepository\SkillCharacterRepository.cs" />
+    <Compile Include="Repository\Skill\ISkillRepository.cs" />
+    <Compile Include="Repository\Look\ILookRepository.cs" />
+    <Compile Include="Repository\Look\LookRepository.cs" />
+    <Compile Include="Repository\Map\IMapRepository.cs" />
+    <Compile Include="Repository\Map\MapRepository.cs" />
+    <Compile Include="Repository\Position\IPositionRepository.cs" />
+    <Compile Include="Repository\Position\PositionRepository.cs" />
+    <Compile Include="Repository\Race\IRaceRepository.cs" />
+    <Compile Include="Repository\Race\RaceRepository.cs" />
+    <Compile Include="Repository\SkillType\ISkillTypeRepository.cs" />
+    <Compile Include="Repository\SkillType\SkillTypeRepository.cs" />
+    <Compile Include="Repository\Skill\SkillRepository.cs" />
+    <Compile Include="Repository\Stat\IStatRepository.cs" />
+    <Compile Include="Repository\Stat\StatRepository.cs" />
+    <Compile Include="Repository\ViewRepository\CharacterHeighMap\CharacterHeighMapRepository.cs" />
+    <Compile Include="Repository\ViewRepository\CharacterHeighMap\ICharacterHeightMapRepository.cs" />
+    <Compile Include="Repository\ViewRepository\CharacterLevelAvg\CharacterLevelAvgRepo.cs" />
+    <Compile Include="Repository\ViewRepository\CharacterLevelAvg\ICharacterLevelAvgRepo.cs" />
+    <Compile Include="Repository\ViewRepository\PlayerOnMap\IPlayerOnMapRepository.cs" />
+    <Compile Include="Repository\ViewRepository\PlayerOnMap\PlayerOnMapRepository.cs" />
     <Compile Include="STATYSTYKI.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -128,6 +157,8 @@
     <Compile Include="UMIEJETNOSCI_POSTAC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="WYGLAD.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -158,5 +189,6 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

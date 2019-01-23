@@ -18,7 +18,7 @@ namespace mmo_pd_db_client.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-    
+
 
         public IAccountRepository AccountRepository { get; }
         public IBaseStatisticsRepository BaseStatisticsRepository { get; }
@@ -32,7 +32,7 @@ namespace mmo_pd_db_client.UnitOfWork
         public ISkillCharacterRepository SkillCharacterRepository { get; }
         public ISkillTypeRepository SkillTypeRepository { get; }
         public IStatRepository StatRepository { get; }
-        public ICharacterHeightMapRepository CharacterHeightMapRepository { get; }
+        public ICharacterHeighMapRepository CharacterHeightMapRepository { get; }
         public ICharacterLevelAvgRepo CharacterLevelAvg { get; }
         public IPlayerOnMapRepository PlayerOnMapRepository { get; }
 
@@ -59,5 +59,7 @@ namespace mmo_pd_db_client.UnitOfWork
         {
             
         }
+
+    
     }
 }

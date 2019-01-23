@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using mmo_pd_db_client.Manual.DB;
 using mmo_pd_db_client.Repository.Account;
+using mmo_pd_db_client.UnitOfWork;
 
 namespace mmo_pd_db_client
 {
@@ -24,11 +25,11 @@ namespace mmo_pd_db_client
             //    }
             //    Console.ReadKey();
             //}
-            AccountRepository repo = new AccountRepository();
+           IUnitOfWork unitOfWork = new UnitOfWork.UnitOfWork();
 
             //KONTA testKonta = repo.GetById(1);
 
-            List<KONTA> kontas = repo.GetAll().ToList();
+            List<KONTA> kontas = unitOfWork.AccountRepository.GetAll().ToList();
             foreach (var kontoSingle in kontas)
             {
                 Console.WriteLine(kontoSingle.ID + kontoSingle.EMAIL);
