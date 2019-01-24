@@ -145,6 +145,7 @@ namespace mmo_pd_db_client.Menu
             Console.WriteLine("4. Character class");
             Console.WriteLine("5. Look");
             Console.WriteLine("6. Map");
+            Console.WriteLine("7. Position");
 
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("---------------------------");
@@ -171,6 +172,9 @@ namespace mmo_pd_db_client.Menu
                     break;
                 case 6:
                     _menuHandlers.MapMenu();
+                    break;
+                case 7:
+                    _menuHandlers.PositionMenu();
                     break;
                 default:
                     Console.WriteLine("Option with this number not exists.");

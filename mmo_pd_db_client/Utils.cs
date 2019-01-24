@@ -24,6 +24,44 @@ namespace mmo_pd_db_client
             return num;
         }
 
+        public static float GetFloatFromConsole(string message)
+        {
+            string user_response = string.Empty;
+            float num;
+            bool tryParse = false;
+            do
+            {
+                Console.WriteLine(message);
+                user_response = Console.ReadLine();
+                tryParse = float.TryParse(user_response, out num);
+                if (!tryParse)
+                {
+                    Console.WriteLine("Type number");
+                }
+            } while (!tryParse);
+
+            return num;
+        }
+
+        public static decimal GetDecimalFromConsole(string message)
+        {
+            string user_response = string.Empty;
+            decimal num;
+            bool tryParse = false;
+            do
+            {
+                Console.WriteLine(message);
+                user_response = Console.ReadLine();
+                tryParse = decimal.TryParse(user_response, out num);
+                if (!tryParse)
+                {
+                    Console.WriteLine("Type number");
+                }
+            } while (!tryParse);
+
+            return num;
+        }
+
         public static string GetStringFromConsole(string message)
         {
             Console.Write(message);

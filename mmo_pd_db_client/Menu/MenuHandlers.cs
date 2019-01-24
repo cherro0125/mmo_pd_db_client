@@ -1239,6 +1239,168 @@ namespace mmo_pd_db_client.Menu
 
         #endregion
 
+        #region Position
+
+        public void PrintAllPosition()
+        {
+            List<POZYCJE> stats = _unitOfWork.PositionRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (POZYCJE rec in stats)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} MAP ID: {rec.MAP_ID} X: {rec.X} Y: {rec.Y} Z: {rec.Z}  ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+
+        public void PrintOnePosition()
+        {
+            int id = Utils.GetIntFromConsole("Position ID:");
+            POZYCJE rec = _unitOfWork.PositionRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} MAP ID: {rec.MAP_ID} X: {rec.X} Y: {rec.Y} Z: {rec.Z}  ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeletePosition()
+        {
+            int id = Utils.GetIntFromConsole("Position ID to delete:");
+            POZYCJE rec = _unitOfWork.PositionRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.PositionRepository.Delete(rec);
+                _unitOfWork.PositionRepository.Save();
+                Console.WriteLine(" deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreatePosition()
+        {
+            POZYCJE rec = new POZYCJE();
+            int mapId = Utils.GetIntFromConsole("MAP ID:");
+            if (_unitOfWork.MapRepository.GetById(mapId) != null)
+            {
+                rec.MAP_ID = mapId;
+            }
+            else
+            {
+                Console.WriteLine("Map with this ID not work");
+                Thread.Sleep(2000);
+                return;
+            }
+            rec.X = Utils.GetDecimalFromConsole("X:");
+            rec.Y = Utils.GetDecimalFromConsole("Y:");
+            rec.Z = Utils.GetDecimalFromConsole("Z:");
+            _unitOfWork.PositionRepository.Add(rec);
+            _unitOfWork.PositionRepository.Save();
+            Console.WriteLine(" created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyPosition()
+        {
+            int id = Utils.GetIntFromConsole("Position ID to modify:");
+            POZYCJE rec = _unitOfWork.PositionRepository.GetById(id);
+            if (rec != null)
+            {
+                int mapId = Utils.GetIntFromConsole("MAP ID:");
+                if (_unitOfWork.MapRepository.GetById(mapId) != null)
+                {
+                    rec.MAP_ID = mapId;
+                }
+                else
+                {
+                    Console.WriteLine("Map with this ID not work");
+                    Thread.Sleep(2000);
+                    return;
+                }
+                rec.X = Utils.GetDecimalFromConsole("X:");
+                rec.Y = Utils.GetDecimalFromConsole("Y:");
+                rec.Z = Utils.GetDecimalFromConsole("Z:");
+                _unitOfWork.PositionRepository.Edit(rec);
+                _unitOfWork.PositionRepository.Save();
+                Console.WriteLine(" modified");
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void PositionMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandlePositionMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandlePositionMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllPosition();
+                    break;
+                case 2:
+                    PrintOnePosition();
+                    break;
+                case 3:
+                    DeletePosition();
+                    break;
+                case 4:
+                   CreatePosition();
+                    break;
+                case 5:
+                    ModifyPosition();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+        #endregion
+
 
         #endregion
 
