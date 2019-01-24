@@ -1102,6 +1102,143 @@ namespace mmo_pd_db_client.Menu
 
         #endregion
 
+        #region Map
+
+        public void PrintAllMap()
+        {
+            List<MAPY> stats = _unitOfWork.MapRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (MAPY rec in stats)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} CHEST WIDTH: {rec.NAME}  ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+
+        public void PrintOneMap()
+        {
+            int id = Utils.GetIntFromConsole("Map ID:");
+            MAPY rec = _unitOfWork.MapRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} CHEST WIDTH: {rec.NAME}  ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeleteMap()
+        {
+            int id = Utils.GetIntFromConsole("Map ID to delete:");
+            MAPY rec = _unitOfWork.MapRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.MapRepository.Delete(rec);
+                _unitOfWork.MapRepository.Save();
+                Console.WriteLine(" deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreateMap()
+        {
+            MAPY rec = new MAPY();
+            rec.NAME = Utils.GetStringFromConsole("MAP NAME:");
+            _unitOfWork.MapRepository.Add(rec);
+            _unitOfWork.MapRepository.Save();
+            Console.WriteLine(" created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyMap()
+        {
+            int id = Utils.GetIntFromConsole("MAP ID to modify:");
+            MAPY rec = _unitOfWork.MapRepository.GetById(id);
+            if (rec != null)
+            {
+                rec.NAME = Utils.GetStringFromConsole("MAP NAME:");
+                _unitOfWork.MapRepository.Edit(rec);
+                _unitOfWork.MapRepository.Save();
+                Console.WriteLine(" modified");
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void MapMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleMapMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleMapMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllMap();
+                    break;
+                case 2:
+                    PrintOneMap();
+                    break;
+                case 3:
+                    DeleteMap();
+                    break;
+                case 4:
+                    CreateMap();
+                    break;
+                case 5:
+                    ModifyMap();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+
+        #endregion
+
 
         #endregion
 
