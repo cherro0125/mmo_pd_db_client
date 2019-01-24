@@ -1402,6 +1402,118 @@ namespace mmo_pd_db_client.Menu
         #endregion
 
 
+        #region View
+
+
+        public void PrintAllCharacterHeightMap()
+        {
+            List<POSTACIE_WYSOKOSC_MAPA> stats = _unitOfWork.CharacterHeightMapRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (POSTACIE_WYSOKOSC_MAPA rec in stats)
+                {
+                    Console.WriteLine(
+                        $"NAZWA MAPY: {rec.NAZWA_MAPY} NICKNAME: {rec.NICKNAME} WYSOKOSC NA MAPIE: {rec.WYSOKOSC_NA_MAPIE}   ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+        public void PrintAllCharacterLevelAvg()
+        {
+            List<POSTACIE_LEVEL_AVG> stats = _unitOfWork.CharacterLevelAvg.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (POSTACIE_LEVEL_AVG rec in stats)
+                {
+                    Console.WriteLine(
+                        $"EMAIL: {rec.EMAIL} LEVEL: {rec.CH_LEVEL} LOGIN: {rec.LOGIN} NICKNAME: {rec.NICKNAME}   ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+        public void PrintAllPLayerOnMap()
+        {
+            List<GRACZE_NA_MAPACH> stats = _unitOfWork.PlayerOnMapRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (GRACZE_NA_MAPACH rec in stats)
+                {
+                    Console.WriteLine(
+                        $"NAZWA MAPY: {rec.NAME} ILOSC GRACZY: {rec.ILOSC_GRACZY}   ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+        public void ViewMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("---------------------------");
+                Console.WriteLine("1. Print character Height Map View");
+                Console.WriteLine("2. Print Character Level Avg view");
+                Console.WriteLine("3. Print Player on map view");
+                Console.WriteLine("0. Return to ORM");
+                Console.WriteLine("---------------------------");
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleViewMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleViewMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllCharacterHeightMap();
+                    break;
+                case 2:
+                    PrintAllCharacterLevelAvg();
+                    break;
+                case 3:
+                    PrintAllPLayerOnMap();
+                    break;      
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+        #endregion
+
+
         #endregion
 
         #endregion
