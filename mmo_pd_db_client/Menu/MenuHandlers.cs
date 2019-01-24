@@ -953,6 +953,155 @@ namespace mmo_pd_db_client.Menu
 
         #endregion
 
+        #region Look
+
+        public void PrintAllLook()
+        {
+            List<WYGLAD> stats = _unitOfWork.LookRepository.GetAll().ToList();
+            if (stats.Any())
+            {
+                foreach (WYGLAD rec in stats)
+                {
+                    Console.WriteLine(
+                        $"ID:{rec.ID} CHEST WIDTH: {rec.CHEST_WIDTH} EYE COLOR: {rec.EYE_COLOR} HAIR COLOR: {rec.HAIR_COLOR} HAIR TYPE: {rec.HAIR_TYPE} HEIGHT: {rec.HEIGHT} SEX: {rec.SEX} SKIN COLOR: {rec.SKIN_COLOR}  ");
+                }
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(2000);
+            }
+
+        }
+
+
+        public void PrintOneLook()
+        {
+            int id = Utils.GetIntFromConsole("Look ID:");
+            WYGLAD rec = _unitOfWork.LookRepository.GetById(id);
+            if (rec != null)
+            {
+                Console.WriteLine(
+                    $"ID:{rec.ID} CHEST WIDTH: {rec.CHEST_WIDTH} EYE COLOR: {rec.EYE_COLOR} HAIR COLOR: {rec.HAIR_COLOR} HAIR TYPE: {rec.HAIR_TYPE} HEIGHT: {rec.HEIGHT} SEX: {rec.SEX} SKIN COLOR: {rec.SKIN_COLOR}  ");
+                Console.WriteLine("Click any button to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("not found");
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        public void DeleteLook()
+        {
+            int id = Utils.GetIntFromConsole("Look ID to delete:");
+            WYGLAD rec = _unitOfWork.LookRepository.GetById(id);
+            if (rec != null)
+            {
+                _unitOfWork.LookRepository.Delete(rec);
+                _unitOfWork.LookRepository.Save();
+                Console.WriteLine(" deleted");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CreateLook()
+        {
+            WYGLAD rec = new WYGLAD();
+            rec.CHEST_WIDTH = Utils.GetIntFromConsole("CHEST WIDTH:");
+            rec.EYE_COLOR = Utils.GetStringFromConsole("EYE COLOR:");
+            rec.HAIR_COLOR = Utils.GetStringFromConsole("HAIR COLOR:");
+            rec.HAIR_TYPE = true;
+            rec.HEIGHT = Utils.GetIntFromConsole("HEIGHT: ");
+            rec.SEX = Utils.GetStringFromConsole("SEX:");
+            rec.SKIN_COLOR = Utils.GetStringFromConsole("SKIN COLOR: ");
+            _unitOfWork.LookRepository.Add(rec);
+            _unitOfWork.LookRepository.Save();
+            Console.WriteLine(" created");
+            Thread.Sleep(1000);
+        }
+
+        public void ModifyLook()
+        {
+            int id = Utils.GetIntFromConsole("Look ID to modify:");
+            WYGLAD rec = _unitOfWork.LookRepository.GetById(id);
+            if (rec != null)
+            {
+                rec.CHEST_WIDTH = Utils.GetIntFromConsole("CHEST WIDTH:");
+                rec.EYE_COLOR = Utils.GetStringFromConsole("EYE COLOR:");
+                rec.HAIR_COLOR = Utils.GetStringFromConsole("HAIR COLOR:");
+                rec.HAIR_TYPE = true;
+                rec.HEIGHT = Utils.GetIntFromConsole("HEIGHT: ");
+                rec.SEX = Utils.GetStringFromConsole("SEX:");
+                rec.SKIN_COLOR = Utils.GetStringFromConsole("SKIN COLOR: ");
+                _unitOfWork.LookRepository.Edit(rec);
+                _unitOfWork.LookRepository.Save();
+                Console.WriteLine(" modified");
+            }
+            else
+            {
+                Console.WriteLine(" not found");
+            }
+            Thread.Sleep(2000);
+
+        }
+
+        public void LookMenu()
+        {
+            int choice;
+            string userChoice = String.Empty;
+            do
+            {
+                Console.Clear();
+                Utils.PrintOrmOperationMenu();
+                Console.Write("Choice:");
+                userChoice = Console.ReadLine();
+                Console.WriteLine("");
+                if (!int.TryParse(userChoice, out choice)) continue;
+                if (choice == 0) break;
+                HandleLookMenu(choice);
+
+            } while (true);
+        }
+
+        private void HandleLookMenu(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    PrintAllLook();
+                    break;
+                case 2:
+                    PrintOneLook();
+                    break;
+                case 3:
+                    DeleteLook();
+                    break;
+                case 4:
+                    CreateLook();                    
+                    break;
+                case 5:
+                    ModifyLook();
+                    break;
+                default:
+                    Console.WriteLine("Option with this number not exists.");
+                    break;
+
+            }
+        }
+
+
+        #endregion
+
 
         #endregion
 
